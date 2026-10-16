@@ -24,6 +24,31 @@
     s.querySelectorAll('[data-a]').forEach(function (el, i) { el.style.setProperty('--i', i); });
   });
 
+  // Hoạ tiết nông sản: rải hai bên mép mục, xen trái/phải cho cân. Số giả ngẫu nhiên có hạt giống
+  // theo từng mục để lần nào tải trang cũng ra đúng một bố cục.
+  var narrow = innerWidth < 768;
+  sections.forEach(function (s, k) {
+    var kind = s.dataset.crop;
+    if (!kind) return;
+    var seed = k * 7919 + 17;
+    var rnd = function () { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; };
+    var n = narrow ? 4 : 6;
+    var html = '';
+    for (var j = 0; j < n; j++) {
+      var x = narrow ? (j % 2 ? 95 + rnd() * 5 : rnd() * 5) : (j % 2 ? 94 + rnd() * 3.5 : 1.5 + rnd() * 3.5); // tâm hình, tính theo % bề ngang
+      var y = 6 + (j / n) * 84 + rnd() * 8;
+      var size = (narrow ? 20 : 26) + rnd() * (narrow ? 12 : 22);
+      html += '<svg class="crop' + (kind === 'tieu' ? ' tall' : '') + '" style="--x:' + x.toFixed(1) + '%;--y:' + y.toFixed(1) +
+        '%;--s:' + size.toFixed(0) + 'px;--r:' + (rnd() * 360).toFixed(0) + 'deg;--d:' + (9 + rnd() * 8).toFixed(1) +
+        's;--dl:-' + (rnd() * 8).toFixed(1) + 's"><use href="#c-' + kind + '"/></svg>';
+    }
+    var box = document.createElement('div');
+    box.className = 'crops-bg';
+    box.setAttribute('aria-hidden', 'true');
+    box.innerHTML = html;
+    s.prepend(box);
+  });
+
   var dots = {};
   document.querySelectorAll('.dots a').forEach(function (a) { dots[a.hash.slice(1)] = a; });
 
@@ -33,6 +58,8 @@
     entries.forEach(function (e) {
       if (!e.isIntersecting) return;
       e.target.classList.add('in');
+      // Chỉ mục đang xem mới cho hoạ tiết trôi, các mục khác đứng yên cho nhẹ máy.
+      sections.forEach(function (s) { s.classList.toggle('on', s === e.target); });
       Object.keys(dots).forEach(function (id) {
         if (id === e.target.id) dots[id].setAttribute('aria-current', 'true');
         else dots[id].removeAttribute('aria-current');

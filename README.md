@@ -60,6 +60,23 @@ không nén nên Lighthouse chạy local sẽ nhắc mục này.
 - Phím ↑ ↓ PageUp PageDown Home End và chấm bên phải đều chuyển mục.
 - `prefers-reduced-motion`: tắt mọi hiệu ứng, chuyển mục không trượt, chữ hiện ngay.
 
+## Hoạ tiết nông sản
+
+Trang đầu: vài chiếc lá trôi (thẻ `<i class="leaf">` trong mục `#dau`). Các mục sau mỗi mục **một**
+loại, đặt bằng thuộc tính `data-crop` trên thẻ `<section>`:
+
+| `data-crop` | Hình |
+|---|---|
+| `caphe` | Hạt cà phê |
+| `tieu` | Chùm tiêu (màu theo `--cc` của mục: đỏ trên nền đất, xanh trên nền sáng) |
+| `dieu` | Hạt điều |
+| `lacaosu` | Lá cao su ba lá chét |
+| `mu` | Giọt mủ cao su (trắng, hợp nền xanh) |
+
+Đổi loại thì sửa `data-crop`; bỏ thuộc tính là mục đó không có hoạ tiết. Độ đậm từng mục là biến
+`--o` trong CSS. `main.js` rải hình hai bên mép (6 hình trên máy tính, 4 trên điện thoại), vị trí cố
+định theo từng mục. Hình chỉ trôi ở mục đang xem, và đứng yên khi bật giảm chuyển động.
+
 ## Nội dung
 
 Giá, hạn mức gói miễn phí, 30 ngày dùng thử, "hết hạn không khoá sổ / không tự trừ tiền / hoàn tiền

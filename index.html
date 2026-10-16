@@ -66,6 +66,25 @@ main>section{position:relative;min-height:100vh;min-height:100svh;display:flex;a
 .leaf{position:absolute;width:18px;height:30px;border-radius:0 100% 0 100%;background:var(--leaf);opacity:.55;animation:drift 11s ease-in-out infinite;pointer-events:none}
 .leaf:nth-of-type(2){animation-duration:14s;animation-delay:-5s;background:#9bd35a}
 .leaf:nth-of-type(3){animation-duration:17s;animation-delay:-9s;width:12px;height:20px}
+.leaf:nth-of-type(4){animation-duration:13s;animation-delay:-2s;width:22px;height:36px;background:#4f9a24;opacity:.45}
+.leaf:nth-of-type(5){animation-duration:19s;animation-delay:-12s;width:14px;height:24px;background:#9bd35a;opacity:.4}
+
+/* ===== Hoạ tiết nông sản: mỗi mục MỘT loại, chỉ nằm hai bên mép để không đè chữ ===== */
+main>section>.wrap,.foot{position:relative;z-index:1}
+.crops-bg{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.crop{position:absolute;left:calc(var(--x) - var(--s)/2);top:var(--y);width:var(--s);height:var(--s);color:var(--cc);transform:rotate(var(--r));opacity:0;transition:opacity 1.2s ease;animation:float var(--d) ease-in-out var(--dl) infinite;animation-play-state:paused}
+.crop.tall{height:calc(var(--s)*1.65)}
+.in .crop{opacity:var(--o)}
+.on .crop{animation-play-state:running}
+@media (max-width:767px){.in .crop{opacity:calc(var(--o)*.7)}}
+@keyframes float{50%{translate:0 -16px;rotate:14deg}}
+#vi-sao,#ai-dung{--o:.5}
+#van-de{--o:.6;--cc:#d4462a}
+#loi-ich{--o:.35;--cc:#3f8f3a}
+#tinh-nang,#hoi-dap{--o:.6}
+#cach-dung{--o:.3}
+#goi{--o:.45;--cc:#5b9a2e}
+#bat-dau{--o:.35;--cc:#9bd35a}
 @keyframes glow{50%{transform:scale(1.08);opacity:.85}}
 @keyframes drift{0%,100%{transform:translate(0,0) rotate(-10deg)}50%{transform:translate(-30px,40px) rotate(25deg)}}
 
@@ -237,6 +256,11 @@ main>section{position:relative;min-height:100vh;min-height:100svh;display:flex;a
   <symbol id="i-rain" viewBox="0 0 24 24"><path d="M7 15a5 5 0 1 1 1.5-9.8A6 6 0 0 1 20 9a4 4 0 0 1-2 6M8 19l-1 2M12 18l-1 3M16 19l-1 2"/></symbol>
   <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></symbol>
   <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></symbol>
+  <symbol id="c-caphe" viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="7.5" ry="10.5" fill="#7a4a2c"/><ellipse cx="9.6" cy="8.5" rx="2.3" ry="4" fill="#a06a44" opacity=".6"/><path d="M12 1.8c-2.6 3.6 2.6 6.6 0 10.2s2.6 6.6 0 10.2" stroke="#3b2416" stroke-width="1.5" fill="none" stroke-linecap="round"/></symbol>
+  <symbol id="c-tieu" viewBox="0 0 24 40"><path d="M12 1v38" stroke="#5c7a2a" stroke-width="1.4"/><g fill="currentColor"><circle cx="8.5" cy="6" r="3.2"/><circle cx="15.5" cy="9" r="3.2"/><circle cx="8.5" cy="12" r="3.2"/><circle cx="15.5" cy="15" r="3.2"/><circle cx="8.5" cy="18" r="3.2"/><circle cx="15.5" cy="21" r="3"/><circle cx="8.5" cy="24" r="3"/><circle cx="15.5" cy="27" r="2.7"/><circle cx="9.5" cy="30" r="2.4"/><circle cx="14.5" cy="33" r="2"/></g><g fill="#fff" opacity=".4"><circle cx="7.5" cy="5" r=".9"/><circle cx="14.5" cy="8" r=".9"/><circle cx="7.5" cy="11" r=".9"/><circle cx="14.5" cy="14" r=".9"/><circle cx="7.5" cy="17" r=".9"/><circle cx="14.5" cy="20" r=".9"/><circle cx="7.5" cy="23" r=".9"/></g></symbol>
+  <symbol id="c-dieu" viewBox="0 0 24 24"><path d="M8 3C4 4 2.5 9 4 13.5S10 21 15 20.5c3-.3 5-2.6 4-5-.8-1.9-3-2-4.6-2.7C12 11.8 11.5 9.6 11.8 7.4 12 5 11 2.5 8 3z" fill="#e3c189" stroke="#b8894e" stroke-width="1.2"/><path d="M6.5 7c-1 2.5-.6 5.5 1.2 7.8" stroke="#fff" stroke-opacity=".55" stroke-width="1.3" fill="none" stroke-linecap="round"/></symbol>
+  <symbol id="c-lacaosu" viewBox="0 0 24 24"><g fill="currentColor"><path d="M12 15C9 12 8.5 6 12 1c3.5 5 3 11 0 14z"/><path d="M12 15C9.5 15.5 4.5 13.5 2.5 8.5c4.5-.5 8.5 2 9.5 6.5z"/><path d="M12 15c2.5.5 7.5-1.5 9.5-6.5-4.5-.5-8.5 2-9.5 6.5z"/></g><path d="M12 14V4M12 15L5 10M12 15l7-5" stroke="#fff" stroke-opacity=".35" stroke-width=".8" fill="none"/><path d="M12 23v-8" stroke="currentColor" stroke-width="1.4"/></symbol>
+  <symbol id="c-mu" viewBox="0 0 24 24"><path d="M12 2C9.5 7 6 10.5 6 15a6 6 0 0 0 12 0c0-4.5-3.5-8-6-13z" fill="#fffdf5"/><path d="M9.2 15.5a3 3 0 0 0 2.3 3" stroke="#cfe3d1" stroke-width="1.3" fill="none" stroke-linecap="round"/></symbol>
   <symbol id="i-android" viewBox="0 0 24 24"><path d="M5 10v7a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-7zM5 10a7 7 0 0 1 14 0M8 4.5L6.5 2.5M16 4.5l1.5-2M9.5 7h.01M14.5 7h.01M9 18v3M15 18v3M2.5 11v5M21.5 11v5"/></symbol>
 </svg>
 
@@ -260,6 +284,8 @@ main>section{position:relative;min-height:100vh;min-height:100svh;display:flex;a
     <i class="leaf" style="top:22%;left:6%" aria-hidden="true"></i>
     <i class="leaf" style="top:62%;left:46%" aria-hidden="true"></i>
     <i class="leaf" style="top:14%;left:58%" aria-hidden="true"></i>
+    <i class="leaf" style="top:74%;left:12%" aria-hidden="true"></i>
+    <i class="leaf" style="top:40%;left:93%" aria-hidden="true"></i>
     <div class="wrap hero">
       <div>
         <a class="brand" href="#dau" data-a style="--i:0"><img src="logo.svg" alt="" width="44" height="44">THUMUA365</a>
@@ -300,7 +326,7 @@ main>section{position:relative;min-height:100vh;min-height:100svh;display:flex;a
   </section>
 
   <!-- 2 -->
-  <section id="vi-sao" aria-labelledby="vi-sao-t">
+  <section id="vi-sao" data-crop="caphe" aria-labelledby="vi-sao-t">
     <div class="wrap grid2">
       <div>
         <span class="eyebrow" data-a>Vì sao có THUMUA365</span>
@@ -316,7 +342,7 @@ main>section{position:relative;min-height:100vh;min-height:100svh;display:flex;a
   </section>
 
   <!-- 3 -->
-  <section id="van-de" aria-labelledby="van-de-t">
+  <section id="van-de" data-crop="tieu" aria-labelledby="van-de-t">
     <div class="wrap">
       <span class="eyebrow" data-a>Chuyện của vựa</span>
       <h2 id="van-de-t" data-a>Những chuyện vựa nào cũng từng gặp</h2>
@@ -332,7 +358,7 @@ main>section{position:relative;min-height:100vh;min-height:100svh;display:flex;a
   </section>
 
   <!-- 4 -->
-  <section id="loi-ich" aria-labelledby="loi-ich-t">
+  <section id="loi-ich" data-crop="lacaosu" aria-labelledby="loi-ich-t">
     <div class="wrap">
       <span class="eyebrow" data-a>Lợi ích</span>
       <h2 id="loi-ich-t" data-a>Vựa được gì khi chuyển qua sổ điện tử</h2>
@@ -346,7 +372,7 @@ main>section{position:relative;min-height:100vh;min-height:100svh;display:flex;a
   </section>
 
   <!-- 5 -->
-  <section id="tinh-nang" aria-labelledby="tinh-nang-t">
+  <section id="tinh-nang" data-crop="dieu" aria-labelledby="tinh-nang-t">
     <div class="wrap">
       <span class="eyebrow" data-a>Tính năng chính</span>
       <h2 id="tinh-nang-t" data-a>Đủ cho việc mua bán hằng ngày của vựa</h2>
@@ -369,7 +395,7 @@ main>section{position:relative;min-height:100vh;min-height:100svh;display:flex;a
   </section>
 
   <!-- 6 -->
-  <section id="cach-dung" aria-labelledby="cach-dung-t">
+  <section id="cach-dung" data-crop="mu" aria-labelledby="cach-dung-t">
     <div class="wrap">
       <span class="eyebrow" data-a>Cách dùng</span>
       <h2 id="cach-dung-t" data-a>Bốn bước là có phiếu đầu tiên</h2>
@@ -383,7 +409,7 @@ main>section{position:relative;min-height:100vh;min-height:100svh;display:flex;a
   </section>
 
   <!-- 7 -->
-  <section id="ai-dung" aria-labelledby="ai-dung-t">
+  <section id="ai-dung" data-crop="caphe" aria-labelledby="ai-dung-t">
     <div class="wrap">
       <span class="eyebrow" data-a>Ai dùng được</span>
       <h2 id="ai-dung-t" data-a>Một app, ba kiểu người dùng</h2>
@@ -397,7 +423,7 @@ main>section{position:relative;min-height:100vh;min-height:100svh;display:flex;a
   </section>
 
   <!-- 8 -->
-  <section id="goi" aria-labelledby="goi-t">
+  <section id="goi" data-crop="tieu" aria-labelledby="goi-t">
     <div class="wrap">
       <span class="eyebrow" data-a>Gói dịch vụ</span>
       <h2 id="goi-t" data-a>Dùng thử 30 ngày, rồi chọn gói hợp với vựa</h2>
@@ -442,7 +468,7 @@ main>section{position:relative;min-height:100vh;min-height:100svh;display:flex;a
   </section>
 
   <!-- 9 -->
-  <section id="hoi-dap" aria-labelledby="hoi-dap-t">
+  <section id="hoi-dap" data-crop="dieu" aria-labelledby="hoi-dap-t">
     <div class="wrap">
       <span class="eyebrow" data-a>Câu hỏi thường gặp</span>
       <h2 id="hoi-dap-t" data-a>Bà con hay hỏi</h2>
@@ -459,7 +485,7 @@ main>section{position:relative;min-height:100vh;min-height:100svh;display:flex;a
   </section>
 
   <!-- 10 -->
-  <section id="bat-dau" aria-labelledby="bat-dau-t">
+  <section id="bat-dau" data-crop="lacaosu" aria-labelledby="bat-dau-t">
     <div class="wrap">
       <a class="brand" href="#dau" data-a><img src="logo.svg" alt="" width="44" height="44" loading="lazy">THUMUA365</a>
       <h2 id="bat-dau-t" data-a>Thử một mùa với sổ điện tử</h2>
