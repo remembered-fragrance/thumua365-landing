@@ -64,7 +64,7 @@
         if (id === e.target.id) dots[id].setAttribute('aria-current', 'true');
         else dots[id].removeAttribute('aria-current');
       });
-      if (e.target.id === 'dau') countUp();
+      e.target.querySelectorAll('[data-count]').forEach(function (el) { countUp(el, e.target.id === 'dau' ? 900 : 300); });
     });
   }, { rootMargin: '-45% 0px -45% 0px' });
   sections.forEach(function (s) { io.observe(s); });
@@ -110,20 +110,51 @@
     go(el);
   }, { passive: false });
 
-  var counted = false;
-  function countUp() {
-    var el = document.getElementById('tong');
-    if (counted || !el) return;
-    counted = true;
-    var total = Number(el.dataset.total);
-    if (calm) return; // số đã viết sẵn trong HTML
-    var t0 = performance.now() + 900; // chờ các dòng phiếu hiện xong
-    var fmt = new Intl.NumberFormat('vi-VN');
+  // Số chạy từ 0 lên như máy tính tiền. Mỗi số chỉ chạy một lần; HTML đã ghi sẵn số thật,
+  // nên tắt JS hay bật giảm chuyển động vẫn thấy đúng số.
+  var fmt = new Intl.NumberFormat('vi-VN');
+  function countUp(el, wait) {
+    if (calm || el.dataset.done) return;
+    el.dataset.done = '1';
+    var total = Number(el.dataset.count);
+    var t0 = performance.now() + wait;
     requestAnimationFrame(function tick(now) {
       if (now < t0) return requestAnimationFrame(tick); // chưa tới lượt thì để nguyên số thật
       var p = Math.min(1, (now - t0) / 900);
       el.textContent = fmt.format(Math.round(total * (1 - Math.pow(1 - p, 3))));
       if (p < 1) requestAnimationFrame(tick);
     });
+  }
+
+  // Phiếu mẫu ở trang đầu: bấm thử "Trả đủ" / "Ghi nợ" thì đóng con dấu lên phiếu.
+  var stamp = document.querySelector('.stamp');
+  var icons = {
+    paid: ['<path d="M5 12.5l4.5 4.5L19 7.5"/>', 'Phiếu đã chốt: trả đủ'],
+    debt: ['<circle cx="12" cy="12" r="8"/><path d="M12 7.5V12l3 2"/>', 'Phiếu đã chốt: ghi nợ']
+  };
+  var stampTimer;
+  document.querySelectorAll('[data-stamp]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var k = b.dataset.stamp;
+      stamp.className = 'stamp ' + k;
+      stamp.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true">' + icons[k][0] + '</svg><span class="sr-only">' + icons[k][1] + '</span>';
+      void stamp.offsetWidth; // để lần bấm liền nhau vẫn thấy con dấu đóng lại từ đầu
+      stamp.classList.add('show');
+      clearTimeout(stampTimer);
+      stampTimer = setTimeout(function () { stamp.classList.remove('show'); }, 1600);
+    });
+  });
+
+  // Phiếu nghiêng nhẹ theo con chuột (chỉ máy có chuột, không bật khi giảm chuyển động).
+  var card = document.querySelector('.phone-in');
+  if (card && !calm && matchMedia('(hover: hover)').matches) {
+    var hero = document.getElementById('dau');
+    hero.addEventListener('pointermove', function (e) {
+      var r = card.getBoundingClientRect();
+      var x = Math.max(-1, Math.min(1, (e.clientX - r.left - r.width / 2) / r.width));
+      var y = Math.max(-1, Math.min(1, (e.clientY - r.top - r.height / 2) / r.height));
+      card.style.transform = 'perspective(900px) rotateY(' + (x * 8).toFixed(2) + 'deg) rotateX(' + (-y * 8).toFixed(2) + 'deg)';
+    });
+    hero.addEventListener('pointerleave', function () { card.style.transform = ''; });
   }
 })();

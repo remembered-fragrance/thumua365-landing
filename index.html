@@ -43,6 +43,9 @@ main>section{position:relative;min-height:100vh;min-height:100svh;display:flex;a
 .btn{display:inline-flex;align-items:center;gap:10px;min-height:52px;padding:12px 22px;border-radius:14px;font-weight:700;font-size:1.02rem;text-decoration:none;border:2px solid transparent;transition:transform .15s,box-shadow .15s,background .15s}
 .btn-gold{background:var(--gold);color:var(--ink);box-shadow:0 6px 20px -8px rgba(230,168,23,.9)}
 .btn-gold:hover{transform:translateY(-2px);box-shadow:0 10px 24px -8px rgba(230,168,23,.9)}
+.btn-gold{position:relative;overflow:hidden}
+.btn-gold::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.55) 50%,transparent 65%);translate:-110% 0;pointer-events:none}
+.btn-gold:hover::after{translate:110% 0;transition:translate .7s ease}
 .btn-line{border-color:currentColor;color:inherit}
 .btn-line:not(.is-soon):hover{background:rgba(255,255,255,.1)}
 .btn small{display:block;font-weight:500;font-size:.78rem;opacity:.85;line-height:1.2}
@@ -146,8 +149,16 @@ main>section.sc{padding-bottom:calc(clamp(96px,13.9vw,260px)*.7 + 28px)}
 .total output{display:block;font-size:1.7rem;font-weight:800;color:var(--green);font-variant-numeric:tabular-nums;line-height:1.2}
 .total em{display:block;font-size:.78rem;color:var(--ink-2);font-style:normal}
 .acts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
-.acts span{display:block;text-align:center;padding:10px 4px;border-radius:12px;font-weight:700;font-size:.85rem;background:var(--green);color:#fff}
-.acts span+span{background:#fff;color:#9a3412;border:2px solid #e8c8b4}
+.acts button{display:block;width:100%;min-height:44px;padding:10px 4px;border:2px solid var(--green);border-radius:12px;font:inherit;font-weight:700;font-size:.85rem;background:var(--green);color:#fff;cursor:pointer;transition:scale .12s,filter .15s}
+.acts button+button{background:#fff;color:#9a3412;border-color:#e8c8b4}
+.acts button:hover{filter:brightness(1.08)}
+.acts button:active{scale:.95}
+.phone-in{position:relative;transition:transform .25s ease-out}
+.stamp{position:absolute;left:50%;top:44%;width:112px;height:112px;margin:-56px 0 0 -56px;display:grid;place-items:center;border-radius:50%;border:5px solid currentColor;background:rgba(255,255,255,.88);color:var(--green);opacity:0;scale:1.6;rotate:-14deg;pointer-events:none;transition:opacity .2s,scale .35s cubic-bezier(.34,1.56,.64,1)}
+.stamp.debt{color:#c2410c}
+.stamp.show{opacity:1;scale:1}
+.stamp svg{width:58px;height:58px;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 /* Phần mở đầu chạy bằng CSS (không chờ JS) để trên 3G vẫn thấy chữ ngay. */
 #dau [data-a]{animation:rise .8s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i,0)*110ms)}
 #dau h1[data-a]{animation-name:lift}
@@ -201,12 +212,31 @@ main>section.sc{padding-bottom:calc(clamp(96px,13.9vw,260px)*.7 + 28px)}
 /* ===== 6. Cách dùng ===== */
 #cach-dung{background:var(--green);color:#fff}
 #cach-dung .eyebrow{color:var(--gold-l)}
-.steps{counter-reset:s;display:grid;gap:18px;margin:2rem 0 0;padding:0;list-style:none;position:relative}
-@media (min-width:900px){.steps{grid-template-columns:repeat(4,1fr)}
-  .steps::before{content:"";position:absolute;top:28px;left:12%;right:12%;height:3px;background:repeating-linear-gradient(90deg,var(--gold) 0 12px,transparent 12px 22px);transform-origin:left;transition:transform 1.4s .3s ease}
-  .js #cach-dung:not(.in) .steps::before{transform:scaleX(0)}}
-.steps li{position:relative;padding:0 4px}
-.steps li::before{counter-increment:s;content:counter(s);display:grid;place-items:center;width:58px;height:58px;margin-bottom:14px;border-radius:50%;background:var(--gold);color:var(--ink);font-weight:800;font-size:1.5rem;position:relative;box-shadow:0 0 0 6px var(--green)}
+.steps{counter-reset:s;display:grid;gap:18px;margin:2rem 0 0;padding:0;list-style:none}
+@media (min-width:900px){.steps{grid-template-columns:repeat(4,1fr)}}
+.steps li{position:relative;padding:0 4px;--d:calc((var(--i,2) - 2)*.45s)}
+.steps li::before{counter-increment:s;content:counter(s);display:grid;place-items:center;width:58px;height:58px;margin-bottom:14px;border-radius:50%;background:var(--gold);color:var(--ink);font-weight:800;font-size:1.5rem;position:relative;box-shadow:0 0 0 6px rgba(230,168,23,.2);transition:translate .3s cubic-bezier(.34,1.56,.64,1),box-shadow .3s}
+/* Đoạn nối tính theo vòng số (rộng 58px, cách mép trái 4px), không theo % cả hàng, nên luôn khớp. */
+.steps li:not(:last-child)::after{content:"";position:absolute;left:31.5px;top:70px;bottom:-6px;width:3px;background:repeating-linear-gradient(180deg,var(--gold) 0 10px,transparent 10px 18px);transform-origin:top}
+@media (min-width:900px){.steps li:not(:last-child)::after{top:27.5px;bottom:auto;left:72px;width:calc(100% - 60px);height:3px;background:repeating-linear-gradient(90deg,var(--gold) 0 12px,transparent 12px 22px);transform-origin:left}}
+/* Hiện lần lượt: vòng số nảy ra, rồi đoạn nối vẽ sang bước kế. Dùng animation (không dùng transition) để hover không bị trễ theo. */
+.js #cach-dung .steps li[data-a]{transition-delay:calc(var(--d) + .1s)}
+.js #cach-dung.in .steps li::before{animation:popin .55s cubic-bezier(.34,1.56,.64,1) calc(var(--d) + .2s) both}
+.js #cach-dung.in .steps li:not(:last-child)::after{animation:drawY .45s ease calc(var(--d) + .55s) both,marchY 1s linear infinite paused}
+.js #cach-dung.on .steps li:not(:last-child)::after{animation-play-state:running}
+@media (min-width:900px){.js #cach-dung.in .steps li:not(:last-child)::after{animation-name:drawX,marchX}}
+@keyframes popin{from{scale:.2}}
+@keyframes drawX{from{scale:0 1}}
+@keyframes drawY{from{scale:1 0}}
+@keyframes marchX{to{background-position:22px 0}}
+@keyframes marchY{to{background-position:0 18px}}
+/* Điện thoại: vòng số bên trái, chữ bên phải, đường nối chạy dọc ở lề trái không cắt qua chữ. */
+@media (max-width:899px){
+  .steps li{padding:0 0 0 78px;min-height:84px}
+  .steps li::before{position:absolute;left:4px;top:0}
+  .steps h3{padding-top:15px}
+}
+@media (hover:hover){.steps li:hover::before{translate:0 -5px;box-shadow:0 0 0 10px rgba(230,168,23,.28)}}
 .steps p{color:#d8ecdc;margin:0}
 
 /* ===== 7. Ai dùng ===== */
@@ -225,7 +255,9 @@ main>section.sc{padding-bottom:calc(clamp(96px,13.9vw,260px)*.7 + 28px)}
 @media (min-width:900px){.plans{grid-template-columns:repeat(3,1fr);align-items:stretch}}
 .plan{position:relative;display:flex;flex-direction:column;padding:24px;border-radius:22px;background:#fff;border:1px solid var(--rule)}
 .plan.best{border:2px solid var(--green);box-shadow:0 20px 40px -24px rgba(20,102,60,.7)}
-.plan .flag{position:absolute;top:-13px;left:24px;padding:3px 12px;border-radius:99px;background:var(--gold);font-size:.78rem;font-weight:800}
+.plan .flag{position:absolute;top:-13px;left:24px;padding:3px 12px;border-radius:99px;background:var(--gold);font-size:.78rem;font-weight:800;transform-origin:50% 120%}
+.on .flag{animation:wiggle 4s ease-in-out 1s infinite}
+@keyframes wiggle{0%,82%,100%{rotate:0deg}86%{rotate:-7deg}90%{rotate:6deg}94%{rotate:-3deg}}
 .price{font-size:2rem;font-weight:800;color:var(--green);margin:.1em 0 .1em;font-variant-numeric:tabular-nums}
 .price small{font-size:.95rem;font-weight:500;color:var(--ink-2)}
 .plan ul{margin:.8rem 0 0;padding:0;list-style:none}
@@ -245,6 +277,10 @@ main>section.sc{padding-bottom:calc(clamp(96px,13.9vw,260px)*.7 + 28px)}
   transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1),translate .25s ease,box-shadow .25s ease,border-color .25s ease,background-color .25s ease;
   transition-delay:calc(min(var(--i,0),10)*80ms),calc(min(var(--i,0),10)*80ms),0s,0s,0s,0s}
 .role-img{transition:scale .5s ease}
+@keyframes pop{40%{scale:1.22;rotate:-8deg}70%{scale:.95;rotate:4deg}}
+@media (hover:hover){
+  :is(.pain,.feat):hover .ic,:is(.gain,.role):hover .badge{animation:pop .5s ease}
+}
 @media (hover:hover){
   :is(.gain,.feat,.role,.plan,.promise p):hover{translate:0 -6px;box-shadow:0 22px 36px -18px rgba(51,36,26,.42)}
   .pain:hover{translate:0 -6px;background-color:rgba(255,255,255,.1);border-color:rgba(230,168,23,.45);box-shadow:0 22px 36px -16px rgba(0,0,0,.6)}
@@ -262,6 +298,12 @@ main>section.sc{padding-bottom:calc(clamp(96px,13.9vw,260px)*.7 + 28px)}
 .faq summary::after{content:"+";flex:none;display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--green-l);color:var(--green);font-size:1.3rem;font-weight:700;transition:transform .2s}
 .faq details[open] summary::after{transform:rotate(45deg)}
 .faq details p{color:var(--ink-2);margin:0 0 16px}
+/* Mở/đóng mượt trên trình duyệt mới; trình duyệt cũ vẫn mở ngay như thường. */
+:root{interpolate-size:allow-keywords}
+.faq details::details-content{block-size:0;overflow:hidden;transition:block-size .3s ease,content-visibility .3s allow-discrete}
+.faq details[open]::details-content{block-size:auto}
+.faq details[open] p{animation:fadeup .35s ease}
+@keyframes fadeup{from{opacity:0;translate:0 6px}}
 
 /* ===== 10. Bắt đầu ===== */
 #bat-dau{flex-direction:column;justify-content:center;background:radial-gradient(100% 80% at 50% 100%,var(--green-m) 0%,var(--green-d) 75%);color:#fff;text-align:center;padding-bottom:24px}
@@ -286,7 +328,6 @@ main>section.sc{padding-bottom:calc(clamp(96px,13.9vw,260px)*.7 + 28px)}
   html{scroll-behavior:auto}
   *,*::before,*::after{animation:none!important;transition:none!important}
   .js main>section:not(#dau) [data-a]{opacity:1;transform:none}
-  .js #cach-dung:not(.in) .steps::before{transform:none}
 }
 </style>
 <script defer src="config.js"></script>
@@ -373,10 +414,11 @@ main>section.sc{padding-bottom:calc(clamp(96px,13.9vw,260px)*.7 + 28px)}
           <div class="row" data-a style="--i:8"><span>Đơn giá</span><b>112.000 ₫/kg</b></div>
           <div class="total" data-a style="--i:9">
             <small>Thành tiền (app tự tính)</small>
-            <output id="tong" data-total="57568000">57.568.000</output>
+            <output id="tong" data-count="57568000">57.568.000</output>
             <em>Năm mươi bảy triệu năm trăm sáu mươi tám nghìn đồng</em>
           </div>
-          <div class="acts" data-a style="--i:10" aria-hidden="true"><span>Trả đủ &amp; xong</span><span>Ghi nợ &amp; xong</span></div>
+          <div class="acts" data-a style="--i:10"><button type="button" data-stamp="paid">Trả đủ &amp; xong</button><button type="button" data-stamp="debt">Ghi nợ &amp; xong</button></div>
+          <div class="stamp" aria-live="polite"></div>
         </div>
       </figure>
     </div>
@@ -527,7 +569,7 @@ main>section.sc{padding-bottom:calc(clamp(96px,13.9vw,260px)*.7 + 28px)}
         </div>
         <div class="plan" data-a>
           <h3>Theo tháng</h3>
-          <p class="price">149.000₫ <small>/ tháng</small></p>
+          <p class="price"><span data-count="149000">149.000</span>₫ <small>/ tháng</small></p>
           <ul>
             <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span><b>Ghi phiếu không giới hạn</b></span></li>
             <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Công nợ đầy đủ, hẹn ngày trả</span></li>
@@ -538,7 +580,7 @@ main>section.sc{padding-bottom:calc(clamp(96px,13.9vw,260px)*.7 + 28px)}
         <div class="plan best" data-a>
           <span class="flag">Tặng 2 tháng</span>
           <h3>Theo năm</h3>
-          <p class="price">1.490.000₫ <small>/ năm</small></p>
+          <p class="price"><span data-count="1490000">1.490.000</span>₫ <small>/ năm</small></p>
           <ul>
             <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Đủ mọi tính năng của gói tháng</span></li>
             <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Trả một lần vào mùa, khỏi nhớ gia hạn</span></li>
