@@ -46,6 +46,11 @@ main>section{position:relative;min-height:100vh;min-height:100svh;display:flex;a
 .btn-gold{position:relative;overflow:hidden}
 .btn-gold::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.55) 50%,transparent 65%);translate:-110% 0;pointer-events:none}
 .btn-gold:hover::after{translate:110% 0;transition:translate .7s ease}
+/* Nút APK: cùng vệt sáng nhưng ánh bạc. */
+.btn-line:not(.is-soon){position:relative;overflow:hidden}
+.btn-line:not(.is-soon)::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(226,232,240,.55) 47%,rgba(255,255,255,.75) 50%,rgba(203,213,225,.55) 53%,transparent 70%);translate:-110% 0;pointer-events:none}
+.btn-line:not(.is-soon):hover::after{translate:110% 0;transition:translate .7s ease}
+.btn-line:not(.is-soon):hover{border-color:#e2e8f0;box-shadow:0 8px 22px -10px rgba(203,213,225,.7)}
 .btn-line{border-color:currentColor;color:inherit}
 .btn-line:not(.is-soon):hover{background:rgba(255,255,255,.1)}
 .btn small{display:block;font-weight:500;font-size:.78rem;opacity:.85;line-height:1.2}
