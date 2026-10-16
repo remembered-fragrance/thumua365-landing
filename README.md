@@ -41,16 +41,21 @@ cho chắc (câu chữ "thumua365.id.vn" trong phần Cách dùng và Hỏi đá
 
 ## Deploy
 
-Trang tĩnh, đưa nguyên thư mục lên là chạy.
+Đang chạy ở **https://thumua365-landing.vercel.app** (Vercel, project `thumua365-landing`, tài khoản
+`remembered-fragrance`). Repo GitHub riêng tư `remembered-fragrance/thumua365-landing` đã nối với
+Vercel: **push lên nhánh `main` là web tự cập nhật** sau vài giây. Push nhánh khác thì Vercel tạo
+bản xem thử riêng (cần đăng nhập Vercel mới xem được).
 
-**Vercel** (gợi ý): New Project → chọn repo này → Framework Preset **Other**, Build Command để
-trống, Output Directory để trống → Deploy. Gắn domain trong Settings → Domains.
-Hoặc bằng lệnh: `npx vercel --prod` trong thư mục này.
+Deploy tay từ máy (cần `vercel login` một lần; trên Windows PowerShell dùng `npx.cmd`):
 
-**Netlify / Cloudflare Pages / GitHub Pages**: thư mục xuất bản là gốc repo, không có lệnh build.
+```bash
+npx vercel deploy --prod
+```
 
-Máy chủ nên bật nén gzip/brotli (Vercel, Netlify, Cloudflare tự bật) — `python -m http.server`
-không nén nên Lighthouse chạy local sẽ nhắc mục này.
+`.vercelignore` loại `tools/`, `.claude/` và README khỏi web. Vercel tự nén gzip/brotli và đặt
+`Cache-Control: max-age=0, must-revalidate`, nên sửa `config.js` xong deploy là người xem thấy ngay.
+
+Gắn tên miền riêng: Vercel → project → Settings → Domains.
 
 ## Cách trang chuyển mục
 
