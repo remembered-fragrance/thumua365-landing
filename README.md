@@ -1,7 +1,7 @@
 # thumua365-landing — trang giới thiệu THUMUA365
 
 Một trang tĩnh: `index.html` (CSS nằm sẵn trong trang) + `main.js` + `config.js` + logo.
-**Không build, không framework, không thư viện, không công cụ theo dõi.** Cả trang ~47 KB.
+**Không build, không framework, không thư viện, không công cụ theo dõi.** Cả trang ~95 KB chưa nén (~25 KB khi máy chủ nén gzip).
 Lighthouse (máy local): Hiệu năng / Truy cập / Thực hành tốt / SEO = 100 cả mobile lẫn desktop.
 
 | File | Là gì |
@@ -76,6 +76,23 @@ loại, đặt bằng thuộc tính `data-crop` trên thẻ `<section>`:
 Đổi loại thì sửa `data-crop`; bỏ thuộc tính là mục đó không có hoạ tiết. Độ đậm từng mục là biến
 `--o` trong CSS. `main.js` rải hình hai bên mép (6 hình trên máy tính, 4 trên điện thoại), vị trí cố
 định theo từng mục. Hình chỉ trôi ở mục đang xem, và đứng yên khi bật giảm chuyển động.
+
+## Dải cảnh làng quê
+
+Đáy mỗi mục (trừ mở đầu) có một cảnh vẽ SVG, không chữ, kể đúng chuyện của mục: xe hàng vào vựa,
+xóm đêm sáng đèn dưới trời sao, rẫy cao su có người cạo mủ, cây điều và xe đạp chở điều, trụ tiêu,
+nhà nông dân – vựa – công ty nối bằng con đường, mặt trời lên trên đồi cà phê, võng dưới gốc cây
+với ấm trà, đồi xanh sau chân trang.
+
+Cảnh **sinh bằng script**, đừng sửa tay trong `index.html`:
+
+```bash
+python tools/ve-canh.py index.html
+```
+
+Sửa hình, màu, vị trí trong `tools/ve-canh.py` rồi chạy lại; script tự xoá cảnh cũ trước khi chèn.
+Chuyển động (xe chạy vào, sao lấp lánh, khói bếp, võng đung đưa, mặt trời lên) nằm ở CSS, chỉ chạy
+ở mục đang xem và tắt hẳn khi bật giảm chuyển động.
 
 ## Nội dung
 
