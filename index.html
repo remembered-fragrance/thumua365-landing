@@ -61,6 +61,32 @@ main>section{position:relative;min-height:100vh;min-height:100svh;display:flex;a
 @media (min-width:960px){.hero{grid-template-columns:1.15fr .85fr}}
 .brand{display:flex;align-items:center;gap:12px;font-weight:800;font-size:1.25rem;letter-spacing:.02em;margin-bottom:2rem;text-decoration:none}
 .brand img{width:44px;height:44px;background:#fff;border-radius:12px;padding:5px}
+/* Thanh truy cập nhanh: chỉ ở trang đầu, không dính theo khi cuộn để khỏi che các mục sau. */
+#dau{padding-top:136px}
+@media (min-width:900px){#dau{padding-top:112px}}
+.topbar{position:absolute;top:0;left:0;right:0;z-index:2;padding:16px}
+@media (min-width:768px){.topbar{padding:22px 64px}}
+.topbar .wrap{display:flex;align-items:center;gap:8px 16px}
+.topbar .brand{margin:0}
+.topnav{display:flex;gap:2px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+.topnav::-webkit-scrollbar{display:none}
+.topnav a{padding:8px 14px;border-radius:99px;color:#dcefe0;text-decoration:none;font-weight:600;font-size:.95rem;white-space:nowrap;transition:background-color .2s,color .2s}
+.topnav a:hover{background:rgba(255,255,255,.12);color:#fff}
+.btn-sm{min-height:42px;padding:8px 16px;font-size:.92rem;border-radius:12px;white-space:nowrap}
+@media (max-width:899px){
+  .topbar .wrap{flex-wrap:wrap}
+  .topbar .btn-sm{margin-left:auto}
+  .topnav{order:3;width:calc(100% + 10px);margin:0 0 0 -10px}
+  .topnav a{padding:8px 10px;font-size:.92rem}
+}
+@media (max-width:599px){.topnav{justify-content:space-between;width:calc(100% + 20px);margin:0 -10px}}
+/* Dấu báo cuộn: bám đáy màn hình khi đang ở trang đầu (trang đầu trên điện thoại cao hơn một màn). */
+.scroll-cue{position:fixed;left:50%;bottom:20px;translate:-50% 0;z-index:4;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;color:#fff;background:rgba(11,61,36,.6);border:1px solid rgba(255,255,255,.35);box-shadow:0 6px 18px -6px rgba(0,0,0,.5);transition:opacity .3s,background-color .2s}
+.scroll-cue:hover{background:rgba(11,61,36,.85)}
+.scroll-cue svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;animation:cue 1.8s ease-in-out infinite}
+@keyframes cue{0%,100%{translate:0 -3px;opacity:.65}50%{translate:0 4px;opacity:1}}
+.js .scroll-cue{opacity:0;pointer-events:none}
+.js #dau.on .scroll-cue{opacity:1;pointer-events:auto}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 1.2rem;padding:0;list-style:none}
 .chips li{padding:4px 12px;border-radius:99px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);font-size:.88rem}
 .fine{font-size:.9rem;opacity:.85}
@@ -383,6 +409,16 @@ main>section.sc{padding-bottom:calc(clamp(96px,13.9vw,260px)*.7 + 28px)}
 <main>
   <!-- 1 -->
   <section id="dau" aria-labelledby="dau-t">
+    <header class="topbar" data-a style="--i:0">
+      <div class="wrap">
+        <a class="brand" href="#dau"><img src="logo.svg" alt="" width="44" height="44">THUMUA365</a>
+        <nav class="topnav" aria-label="Truy cập nhanh">
+          <a href="#tinh-nang">Tính năng</a><a href="#cach-dung">Cách dùng</a><a href="#goi">Bảng giá</a><a href="#hoi-dap">Hỏi đáp</a>
+        </nav>
+        <a class="btn btn-gold btn-sm" data-link="web" href="https://thumua365.id.vn" rel="noopener">Mở bản web</a>
+      </div>
+    </header>
+    <a class="scroll-cue" href="#vi-sao" aria-label="Cuộn xuống xem tiếp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></a>
     <div class="sun" aria-hidden="true"></div>
     <i class="leaf" style="top:22%;left:6%" aria-hidden="true"></i>
     <i class="leaf" style="top:62%;left:46%" aria-hidden="true"></i>
@@ -391,7 +427,6 @@ main>section.sc{padding-bottom:calc(clamp(96px,13.9vw,260px)*.7 + 28px)}
     <i class="leaf" style="top:40%;left:93%" aria-hidden="true"></i>
     <div class="wrap hero">
       <div>
-        <a class="brand" href="#dau" data-a style="--i:0"><img src="logo.svg" alt="" width="44" height="44">THUMUA365</a>
         <ul class="chips" data-a style="--i:1" aria-label="Mặt hàng">
           <li>Cao su</li><li>Điều</li><li>Cà phê</li><li>Hồ tiêu</li>
         </ul>
