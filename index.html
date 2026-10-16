@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>THUMUA365 — Sổ thu mua điện tử cho vựa nông sản</title>
+<meta name="description" content="Sổ thu mua cho vựa cao su, điều, cà phê, hồ tiêu: cân xong ra tiền ngay, công nợ có hạn rõ ràng, mất sóng vẫn ghi phiếu. Dùng thử 30 ngày đủ tính năng.">
+<meta name="theme-color" content="#14663c">
+<meta property="og:type" content="website">
+<meta property="og:title" content="THUMUA365 — Sổ thu mua điện tử cho vựa nông sản">
+<meta property="og:description" content="Cân xong ra tiền ngay, nợ ai ai nợ nhìn là biết, mất sóng giữa rẫy vẫn ghi phiếu.">
+<link rel="icon" href="logo.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<!-- CSS nằm thẳng trong trang: trên 3G mỗi file CSS riêng là thêm một lượt chờ trước khi thấy chữ. -->
+<style>
+:root{
+  --green:#14663c;--green-d:#0b3d24;--green-m:#1d7a4a;--green-l:#e4efe1;--leaf:#62b51a;
+  --earth:#8a5a34;--soil:#33241a;--soil-2:#4a3424;
+  --gold:#e6a817;--gold-l:#f8e6b0;--gold-d:#9a6a06;
+  --paper:#f7f1e3;--card:#fffbf2;--ink:#1f1a14;--ink-2:#5a5046;--rule:#e2d8c3;
+  color-scheme:light;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-snap-type:y proximity;scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+/* Màn đủ rộng & đủ cao: mỗi lần lăn chuột là sang hẳn một mục. Điện thoại giữ "proximity" để vuốt không bị giật lại. */
+@media (min-width:768px) and (min-height:600px){html{scroll-snap-type:y mandatory}}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 17px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+h1,h2,h3{line-height:1.2;margin:0 0 .5em;text-wrap:balance}
+h1{font-size:clamp(2rem,5vw,3.1rem);font-weight:800;letter-spacing:-.02em}
+h2{font-size:clamp(1.65rem,4.2vw,2.6rem);font-weight:800;letter-spacing:-.01em}
+h3{font-size:1.12rem;font-weight:700}
+p{margin:0 0 1em}
+a{color:inherit}
+.wrap{width:100%;max-width:1120px;margin:0 auto}
+main>section{position:relative;min-height:100vh;min-height:100svh;display:flex;align-items:center;padding:72px 16px;scroll-snap-align:start;overflow:hidden}
+@media (min-width:768px){main>section{padding:80px 64px}}
+.eyebrow{display:inline-block;font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-d);margin-bottom:.8rem}
+.lede{font-size:1.15rem;color:var(--ink-2);max-width:42rem}
+.ic{width:24px;height:24px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+/* Nút */
+.btns{display:flex;flex-wrap:wrap;gap:12px;margin:1.6rem 0 .8rem}
+.btn{display:inline-flex;align-items:center;gap:10px;min-height:52px;padding:12px 22px;border-radius:14px;font-weight:700;font-size:1.02rem;text-decoration:none;border:2px solid transparent;transition:transform .15s,box-shadow .15s,background .15s}
+.btn-gold{background:var(--gold);color:var(--ink);box-shadow:0 6px 20px -8px rgba(230,168,23,.9)}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 10px 24px -8px rgba(230,168,23,.9)}
+.btn-line{border-color:currentColor;color:inherit}
+.btn-line:not(.is-soon):hover{background:rgba(255,255,255,.1)}
+.btn small{display:block;font-weight:500;font-size:.78rem;opacity:.85;line-height:1.2}
+.btn .soon{font-style:normal}
+.is-soon{opacity:.8}
+.is-soon .soon{display:inline-block;margin-top:2px;padding:1px 8px;border-radius:99px;background:var(--gold-l);color:var(--soil);font-size:.72rem;font-weight:700}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+
+/* ===== 1. Mở đầu ===== */
+#dau{background:radial-gradient(120% 90% at 80% 0%,var(--green-m) 0%,var(--green) 40%,var(--green-d) 100%);color:#fff;padding-bottom:150px}
+#dau .lede{color:#dcefe0}
+.hero{display:grid;gap:40px;align-items:center}
+@media (min-width:960px){.hero{grid-template-columns:1.15fr .85fr}}
+.brand{display:flex;align-items:center;gap:12px;font-weight:800;font-size:1.25rem;letter-spacing:.02em;margin-bottom:2rem;text-decoration:none}
+.brand img{width:44px;height:44px;background:#fff;border-radius:12px;padding:5px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 1.2rem;padding:0;list-style:none}
+.chips li{padding:4px 12px;border-radius:99px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);font-size:.88rem}
+.fine{font-size:.9rem;opacity:.85}
+.sun{position:absolute;top:-120px;right:-80px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(248,214,110,.55) 0%,rgba(230,168,23,.18) 45%,transparent 70%);animation:glow 7s ease-in-out infinite;pointer-events:none}
+.hills{position:absolute;left:0;right:0;bottom:-1px;width:100%;height:160px;pointer-events:none}
+.leaf{position:absolute;width:18px;height:30px;border-radius:0 100% 0 100%;background:var(--leaf);opacity:.55;animation:drift 11s ease-in-out infinite;pointer-events:none}
+.leaf:nth-of-type(2){animation-duration:14s;animation-delay:-5s;background:#9bd35a}
+.leaf:nth-of-type(3){animation-duration:17s;animation-delay:-9s;width:12px;height:20px}
+@keyframes glow{50%{transform:scale(1.08);opacity:.85}}
+@keyframes drift{0%,100%{transform:translate(0,0) rotate(-10deg)}50%{transform:translate(-30px,40px) rotate(25deg)}}
+
+/* Phiếu minh hoạ */
+.phone{justify-self:center;width:min(100%,340px);background:var(--card);color:var(--ink);border-radius:30px;padding:14px;box-shadow:0 30px 60px -20px rgba(0,0,0,.55),0 0 0 8px rgba(255,255,255,.08)}
+.phone-in{border:1px solid var(--rule);border-radius:20px;padding:16px 16px 14px;background:#fff}
+.phone-top{display:flex;justify-content:space-between;align-items:center;font-size:.8rem;color:var(--ink-2);margin-bottom:10px}
+.tag{padding:2px 8px;border-radius:99px;background:var(--gold-l);color:var(--soil);font-weight:700;font-size:.7rem}
+.row{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-bottom:1px dashed var(--rule);font-size:.95rem}
+.row span:first-child{color:var(--ink-2)}
+.row b{font-variant-numeric:tabular-nums}
+.minus{color:#9a3412}
+.total{margin-top:10px;padding:12px;border-radius:14px;background:var(--green-l)}
+.total small{display:block;font-size:.75rem;color:var(--ink-2)}
+.total output::after{content:" ₫"}
+.total output{display:block;font-size:1.7rem;font-weight:800;color:var(--green);font-variant-numeric:tabular-nums;line-height:1.2}
+.total em{display:block;font-size:.78rem;color:var(--ink-2);font-style:normal}
+.acts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.acts span{display:block;text-align:center;padding:10px 4px;border-radius:12px;font-weight:700;font-size:.85rem;background:var(--green);color:#fff}
+.acts span+span{background:#fff;color:#9a3412;border:2px solid #e8c8b4}
+/* Phần mở đầu chạy bằng CSS (không chờ JS) để trên 3G vẫn thấy chữ ngay. */
+#dau [data-a]{animation:rise .8s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i,0)*110ms)}
+#dau h1[data-a]{animation-name:lift}
+@keyframes rise{from{opacity:0;transform:translateY(24px)}}
+@keyframes lift{from{transform:translateY(24px)}}
+
+/* ===== Hiệu ứng vào mục (các mục sau) ===== */
+.js main>section:not(#dau) [data-a]{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1);transition-delay:calc(min(var(--i,0),10)*80ms)}
+.js main>section:not(#dau) [data-a="left"]{transform:translateX(-36px)}
+.js main>section:not(#dau) [data-a="zoom"]{transform:scale(.9)}
+.js main>section:not(#dau).in [data-a]{opacity:1;transform:none}
+
+/* ===== 2. Vì sao ===== */
+#vi-sao .grid2{display:grid;gap:32px}
+@media (min-width:900px){#vi-sao .grid2{grid-template-columns:1.1fr .9fr;align-items:center}}
+.quote{position:relative;margin:0;padding:28px 28px 24px;border-radius:24px;background:var(--green);color:#fff;font-size:1.25rem;font-weight:600;line-height:1.45}
+.quote::before{content:"“";position:absolute;top:-28px;left:18px;font-size:6rem;line-height:1;color:var(--gold);font-family:Georgia,serif}
+.quote cite{display:block;margin-top:14px;font-size:.88rem;font-style:normal;font-weight:400;color:#cfe6d3}
+
+/* ===== 3. Vấn đề ===== */
+#van-de{background:linear-gradient(180deg,var(--soil) 0%,var(--soil-2) 100%);color:#f6ecdc}
+#van-de .eyebrow{color:var(--gold)}
+#van-de .lede{color:#dccbb3}
+.pains{display:grid;gap:14px;margin-top:1.8rem}
+@media (min-width:700px){.pains{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1000px){.pains{grid-template-columns:repeat(3,1fr)}}
+.pain{padding:20px;border-radius:18px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12)}
+.pain h3{display:flex;align-items:center;gap:10px;color:#fff}
+.pain h3 .ic{color:var(--gold)}
+.pain p{margin:0;color:#dccbb3;font-size:.97rem}
+
+/* ===== 4. Lợi ích ===== */
+#loi-ich{background:var(--green-l)}
+.gains{display:grid;gap:16px;margin-top:1.8rem}
+@media (min-width:700px){.gains{grid-template-columns:repeat(2,1fr)}}
+.gain{display:flex;gap:16px;padding:22px;border-radius:20px;background:#fff;box-shadow:0 10px 30px -18px rgba(11,61,36,.45)}
+.gain .badge{display:grid;place-items:center;width:52px;height:52px;flex:none;border-radius:16px;background:var(--green);color:#fff}
+.gain .badge .ic{width:28px;height:28px}
+.gain p{margin:0;color:var(--ink-2)}
+
+/* ===== 5. Tính năng ===== */
+#tinh-nang{background:var(--card)}
+.feats{display:grid;gap:12px;margin-top:1.6rem;grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+.feat{display:flex;gap:12px;align-items:flex-start;padding:16px;border-radius:16px;border:1px solid var(--rule);background:#fff}
+.feat .ic{color:var(--green);margin-top:2px}
+.feat h3{font-size:1rem;margin-bottom:.2em}
+.feat p{margin:0;font-size:.92rem;color:var(--ink-2);line-height:1.5}
+.crops{display:flex;flex-wrap:wrap;gap:8px;list-style:none;padding:0;margin:1rem 0 0}
+.crops li{padding:6px 14px;border-radius:99px;font-weight:700;font-size:.9rem;background:var(--gold-l);color:var(--soil)}
+
+/* ===== 6. Cách dùng ===== */
+#cach-dung{background:var(--green);color:#fff}
+#cach-dung .eyebrow{color:var(--gold-l)}
+.steps{counter-reset:s;display:grid;gap:18px;margin:2rem 0 0;padding:0;list-style:none;position:relative}
+@media (min-width:900px){.steps{grid-template-columns:repeat(4,1fr)}
+  .steps::before{content:"";position:absolute;top:28px;left:12%;right:12%;height:3px;background:repeating-linear-gradient(90deg,var(--gold) 0 12px,transparent 12px 22px);transform-origin:left;transition:transform 1.4s .3s ease}
+  .js #cach-dung:not(.in) .steps::before{transform:scaleX(0)}}
+.steps li{position:relative;padding:0 4px}
+.steps li::before{counter-increment:s;content:counter(s);display:grid;place-items:center;width:58px;height:58px;margin-bottom:14px;border-radius:50%;background:var(--gold);color:var(--ink);font-weight:800;font-size:1.5rem;position:relative;box-shadow:0 0 0 6px var(--green)}
+.steps p{color:#d8ecdc;margin:0}
+
+/* ===== 7. Ai dùng ===== */
+.roles{display:grid;gap:16px;margin-top:1.8rem}
+@media (min-width:900px){.roles{grid-template-columns:repeat(3,1fr)}}
+.role{padding:24px;border-radius:22px;background:#fff;border-top:6px solid var(--c);box-shadow:0 10px 30px -20px rgba(51,36,26,.5)}
+.role .badge{display:grid;place-items:center;width:52px;height:52px;border-radius:16px;margin-bottom:12px;background:var(--c);color:#fff}
+.role ul{margin:0;padding-left:1.1em;color:var(--ink-2)}
+.role li{margin:.25em 0}
+.link-band{display:flex;gap:14px;align-items:center;margin-top:16px;padding:16px 20px;border-radius:18px;background:var(--gold-l);color:var(--soil)}
+.link-band p{margin:0}
+
+/* ===== 8. Gói ===== */
+#goi{background:linear-gradient(180deg,#fbf3dc 0%,var(--paper) 100%)}
+.plans{display:grid;gap:16px;margin-top:1.8rem}
+@media (min-width:900px){.plans{grid-template-columns:repeat(3,1fr);align-items:stretch}}
+.plan{position:relative;display:flex;flex-direction:column;padding:24px;border-radius:22px;background:#fff;border:1px solid var(--rule)}
+.plan.best{border:2px solid var(--green);box-shadow:0 20px 40px -24px rgba(20,102,60,.7)}
+.plan .flag{position:absolute;top:-13px;left:24px;padding:3px 12px;border-radius:99px;background:var(--gold);font-size:.78rem;font-weight:800}
+.price{font-size:2rem;font-weight:800;color:var(--green);margin:.1em 0 .1em;font-variant-numeric:tabular-nums}
+.price small{font-size:.95rem;font-weight:500;color:var(--ink-2)}
+.plan ul{margin:.8rem 0 0;padding:0;list-style:none}
+.plan li{display:flex;gap:8px;margin:.45em 0;font-size:.97rem}
+.plan li .ic{width:20px;height:20px;color:var(--green);margin-top:3px}
+.plan li.no{color:var(--ink-2)}
+.plan li.no .ic{color:#b9ad98}
+.promise{display:grid;gap:10px;margin-top:18px}
+@media (min-width:800px){.promise{grid-template-columns:repeat(3,1fr)}}
+.promise p{margin:0;padding:12px 16px;border-radius:14px;background:var(--green-l);font-size:.95rem}
+
+/* ===== 9. Hỏi đáp ===== */
+.faq{max-width:52rem;margin-top:1.6rem}
+.faq details{border-bottom:1px solid var(--rule)}
+.faq summary{display:flex;justify-content:space-between;gap:16px;padding:16px 0;font-weight:700;font-size:1.05rem;cursor:pointer;list-style:none}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";flex:none;display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--green-l);color:var(--green);font-size:1.3rem;font-weight:700;transition:transform .2s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{color:var(--ink-2);margin:0 0 16px}
+
+/* ===== 10. Bắt đầu ===== */
+#bat-dau{flex-direction:column;justify-content:center;background:radial-gradient(100% 80% at 50% 100%,var(--green-m) 0%,var(--green-d) 75%);color:#fff;text-align:center;padding-bottom:24px}
+#bat-dau .wrap{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center}
+#bat-dau .lede{color:#dcefe0;margin:0 auto}
+#bat-dau .btns{justify-content:center}
+#bat-dau .brand{justify-content:center;margin-bottom:1.2rem}
+.foot{width:100%;max-width:1120px;margin:40px auto 0;padding-top:18px;border-top:1px solid rgba(255,255,255,.18);font-size:.88rem;color:#b9d8c1;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px}
+
+/* ===== Chấm điều hướng ===== */
+.dots{position:fixed;right:18px;top:50%;transform:translateY(-50%);z-index:5;display:none;flex-direction:column;gap:6px}
+@media (min-width:768px){.dots{display:flex}}
+.dots a{position:relative;display:grid;place-items:center;width:28px;height:28px;text-decoration:none}
+.dots a::before{content:"";width:10px;height:10px;border-radius:50%;background:#fff;box-shadow:0 0 0 2px var(--green);transition:transform .2s,background .2s}
+.dots a[aria-current]::before{background:var(--gold);transform:scale(1.5)}
+.dots span{position:absolute;right:34px;white-space:nowrap;padding:3px 10px;border-radius:8px;background:var(--soil);color:#fff;font-size:.8rem;opacity:0;transform:translateX(6px);transition:.15s;pointer-events:none}
+.dots a:hover span,.dots a:focus-visible span{opacity:1;transform:none}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .js main>section:not(#dau) [data-a]{opacity:1;transform:none}
+  .js #cach-dung:not(.in) .steps::before{transform:none}
+}
+</style>
+<script defer src="config.js"></script>
+<script defer src="main.js"></script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-scale" viewBox="0 0 24 24"><path d="M12 3v18M7 21h10M4 7h16M7 7l-3 7a3 3 0 0 0 6 0zM17 7l-3 7a3 3 0 0 0 6 0z"/></symbol>
+  <symbol id="i-receipt" viewBox="0 0 24 24"><path d="M5 3h14v18l-3-2-2 2-2-2-2 2-2-2-3 2zM9 8h6M9 12h6M9 16h3"/></symbol>
+  <symbol id="i-wallet" viewBox="0 0 24 24"><path d="M3 7h15a3 3 0 0 1 3 3v7a3 3 0 0 1-3 3H3zM3 7l11-4v4M16.5 13.5h.01"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24"><path d="M3 7l9-4 9 4v10l-9 4-9-4zM3 7l9 4 9-4M12 11v10"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2 20a7 7 0 0 1 14 0M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6 6 0 0 1 4 6"/></symbol>
+  <symbol id="i-tag" viewBox="0 0 24 24"><path d="M3 12V3h9l9 9-9 9z"/><circle cx="7.5" cy="7.5" r="1.5"/></symbol>
+  <symbol id="i-sheet" viewBox="0 0 24 24"><path d="M6 2h9l5 5v15H6zM14 2v6h6M9 13h8M9 17h8M12.5 11v8"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4z"/></symbol>
+  <symbol id="i-keypad" viewBox="0 0 24 24"><rect x="3" y="3" width="5" height="5" rx="1"/><rect x="9.5" y="3" width="5" height="5" rx="1"/><rect x="16" y="3" width="5" height="5" rx="1"/><rect x="3" y="9.5" width="5" height="5" rx="1"/><rect x="9.5" y="9.5" width="5" height="5" rx="1"/><rect x="16" y="9.5" width="5" height="5" rx="1"/><rect x="3" y="16" width="11.5" height="5" rx="1"/><rect x="16" y="16" width="5" height="5" rx="1"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+  <symbol id="i-offline" viewBox="0 0 24 24"><path d="M2 2l20 20M8.5 16.5a5 5 0 0 1 7 0M5 12.5a10 10 0 0 1 5-2.7M19 12.5a10 10 0 0 0-2.5-1.8M2 8.8a15 15 0 0 1 4.2-2.7M10.7 5A15 15 0 0 1 22 8.8M12 20h.01"/></symbol>
+  <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4z"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M10 8.5l5 3.5-5 3.5z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M7 7l10 10M17 7L7 17"/></symbol>
+  <symbol id="i-store" viewBox="0 0 24 24"><path d="M3 9l2-5h14l2 5M4 9v11h16V9M3 9h18M9 20v-6h6v6"/></symbol>
+  <symbol id="i-building" viewBox="0 0 24 24"><path d="M4 21V4h10v17M14 9h6v12M2 21h20M8 8h2M8 12h2M8 16h2M17 13h.01M17 17h.01"/></symbol>
+  <symbol id="i-sprout" viewBox="0 0 24 24"><path d="M12 21v-9M12 12C12 7 8.5 5 3 5c0 5 3.5 7 9 7zM12 10c0-4 3-6 8.5-6 0 4-3 6-8.5 6z"/></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></symbol>
+  <symbol id="i-calc" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M8 6h8M8 11h.01M12 11h.01M16 11h.01M8 15h.01M12 15h.01M16 15h.01M8 19h.01M12 19h4"/></symbol>
+  <symbol id="i-rain" viewBox="0 0 24 24"><path d="M7 15a5 5 0 1 1 1.5-9.8A6 6 0 0 1 20 9a4 4 0 0 1-2 6M8 19l-1 2M12 18l-1 3M16 19l-1 2"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></symbol>
+  <symbol id="i-android" viewBox="0 0 24 24"><path d="M5 10v7a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-7zM5 10a7 7 0 0 1 14 0M8 4.5L6.5 2.5M16 4.5l1.5-2M9.5 7h.01M14.5 7h.01M9 18v3M15 18v3M2.5 11v5M21.5 11v5"/></symbol>
+</svg>
+
+<nav class="dots" aria-label="Các mục trong trang">
+  <a href="#dau"><span>Mở đầu</span></a>
+  <a href="#vi-sao"><span>Vì sao làm</span></a>
+  <a href="#van-de"><span>Chuyện của vựa</span></a>
+  <a href="#loi-ich"><span>Lợi ích</span></a>
+  <a href="#tinh-nang"><span>Tính năng</span></a>
+  <a href="#cach-dung"><span>Cách dùng</span></a>
+  <a href="#ai-dung"><span>Ai dùng được</span></a>
+  <a href="#goi"><span>Gói dịch vụ</span></a>
+  <a href="#hoi-dap"><span>Hỏi đáp</span></a>
+  <a href="#bat-dau"><span>Bắt đầu</span></a>
+</nav>
+
+<main>
+  <!-- 1 -->
+  <section id="dau" aria-labelledby="dau-t">
+    <div class="sun" aria-hidden="true"></div>
+    <i class="leaf" style="top:22%;left:6%" aria-hidden="true"></i>
+    <i class="leaf" style="top:62%;left:46%" aria-hidden="true"></i>
+    <i class="leaf" style="top:14%;left:58%" aria-hidden="true"></i>
+    <div class="wrap hero">
+      <div>
+        <a class="brand" href="#dau" data-a style="--i:0"><img src="logo.svg" alt="" width="44" height="44">THUMUA365</a>
+        <ul class="chips" data-a style="--i:1" aria-label="Mặt hàng">
+          <li>Cao su</li><li>Điều</li><li>Cà phê</li><li>Hồ tiêu</li>
+        </ul>
+        <h1 id="dau-t" data-a style="--i:2">Cân xong là ra tiền.<br>Ai nợ, nợ ai — nhìn là biết.</h1>
+        <p class="lede" data-a style="--i:3">Sổ thu mua điện tử cho vựa nông sản. Làm theo cách bà con mình đã quen, chỉ thay quyển sổ giấy — mất sóng giữa rẫy vẫn ghi phiếu được.</p>
+        <div class="btns" data-a style="--i:4">
+          <a class="btn btn-gold" data-link="web" href="https://thumua365.id.vn" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#i-globe"/></svg><span>Mở bản web<small>thumua365.id.vn</small></span></a>
+          <a class="btn btn-line is-soon" data-link="apk" href="#hoi-dap" title="Bản Android đang chuẩn bị"><svg class="ic" aria-hidden="true"><use href="#i-android"/></svg><span>App Android<small><em class="soon">Sắp có</em></small></span></a>
+        </div>
+        <p class="fine" data-a style="--i:5">Đăng ký là có 30 ngày dùng đủ tính năng · không hỏi thẻ · không tự trừ tiền</p>
+      </div>
+
+      <figure class="phone" data-a style="--i:3;margin:0" aria-label="Ví dụ một phiếu mua cà phê trong app">
+        <div class="phone-in">
+          <div class="phone-top"><b>Phiếu mua · Chú Tư</b><span class="tag">Số liệu ví dụ</span></div>
+          <div class="row" data-a style="--i:4"><span>Mặt hàng</span><b>Cà phê nhân</b></div>
+          <div class="row" data-a style="--i:5"><span>Cân được</span><b>520 kg</b></div>
+          <div class="row" data-a style="--i:6"><span>Trừ bì (bao)</span><b class="minus">− 6 kg</b></div>
+          <div class="row" data-a style="--i:7"><span>Còn lại</span><b>514 kg</b></div>
+          <div class="row" data-a style="--i:8"><span>Đơn giá</span><b>112.000 ₫/kg</b></div>
+          <div class="total" data-a style="--i:9">
+            <small>Thành tiền (app tự tính)</small>
+            <output id="tong" data-total="57568000">57.568.000</output>
+            <em>Năm mươi bảy triệu năm trăm sáu mươi tám nghìn đồng</em>
+          </div>
+          <div class="acts" data-a style="--i:10" aria-hidden="true"><span>Trả đủ &amp; xong</span><span>Ghi nợ &amp; xong</span></div>
+        </div>
+      </figure>
+    </div>
+    <svg class="hills" viewBox="0 0 1440 160" preserveAspectRatio="none" aria-hidden="true">
+      <path fill="#1d7a4a" opacity=".7" d="M0 70C240 20 480 100 720 60S1200 0 1440 70V160H0Z"/>
+      <path fill="#8a5a34" d="M0 105C300 60 520 135 820 100S1260 75 1440 108V160H0Z"/>
+      <path fill="#f7f1e3" d="M0 135C360 108 700 160 1040 132S1320 124 1440 136V160H0Z"/>
+    </svg>
+  </section>
+
+  <!-- 2 -->
+  <section id="vi-sao" aria-labelledby="vi-sao-t">
+    <div class="wrap grid2">
+      <div>
+        <span class="eyebrow" data-a>Vì sao có THUMUA365</span>
+        <h2 id="vi-sao-t" data-a>Quyển sổ giấy theo vựa bao năm. Nhưng nó không tự cộng tiền.</h2>
+        <p class="lede" data-a>Vào mùa, xe hàng nối đuôi trước cửa vựa. Người cân, người ghi, người bấm máy tính, tối về lại ngồi dò từng trang. Chép nhầm một con số là mất tiền — mà còn mất lòng tin của bà con.</p>
+        <p class="lede" data-a>THUMUA365 làm ra để gánh bớt phần đó, với một nguyên tắc: <b>app đổi theo người buôn, không bắt người buôn đổi thói quen.</b> Chữ trong app là chữ của vựa — phiếu, cân, trừ bì, ghi nợ — chứ không phải chữ của kế toán.</p>
+      </div>
+      <blockquote class="quote" data-a="zoom">
+        Sổ thu mua điện tử, làm từ chỗ hiểu thương lái — không bắt thương lái thay đổi.
+        <cite>Câu tụi mình dùng để quyết mọi chuyện khi làm app</cite>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section id="van-de" aria-labelledby="van-de-t">
+    <div class="wrap">
+      <span class="eyebrow" data-a>Chuyện của vựa</span>
+      <h2 id="van-de-t" data-a>Những chuyện vựa nào cũng từng gặp</h2>
+      <div class="pains">
+        <div class="pain" data-a><h3><svg class="ic" aria-hidden="true"><use href="#i-calc"/></svg>Bấm máy tính, chép tay</h3><p>Trừ bì, nhân giá, cộng dồn — làm tay cả trăm phiếu một ngày, sai một số là lệch cả sổ.</p></div>
+        <div class="pain" data-a><h3><svg class="ic" aria-hidden="true"><use href="#i-wallet"/></svg>Nợ ghi mỗi chỗ một ít</h3><p>Sổ này một ít, tin nhắn một ít, trong đầu một ít. Tới hạn ai nhớ thì đòi, quên thì thôi.</p></div>
+        <div class="pain" data-a><h3><svg class="ic" aria-hidden="true"><use href="#i-rain"/></svg>Sổ ướt, sổ rách, sổ mất</h3><p>Một trận mưa hay một lần bỏ quên là mất trắng cả mùa ghi chép.</p></div>
+        <div class="pain" data-a><h3><svg class="ic" aria-hidden="true"><use href="#i-moon"/></svg>Cuối vụ cộng sổ tới khuya</h3><p>Tính tồn kho, làm báo cáo thuế, dò lại ai đã trả ai chưa — mỗi lần mất trọn một buổi tối.</p></div>
+        <div class="pain" data-a><h3><svg class="ic" aria-hidden="true"><use href="#i-offline"/></svg>Ra rẫy là mất sóng</h3><p>App nào cũng đòi có mạng, mà chỗ cân hàng thì sóng lúc có lúc không.</p></div>
+        <div class="pain" data-a><h3><svg class="ic" aria-hidden="true"><use href="#i-users"/></svg>Xe này chưa xong, xe kia tới</h3><p>Hai ba khách cùng lúc, cân xen kẽ nhau, dễ lẫn hàng của người này sang người kia.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section id="loi-ich" aria-labelledby="loi-ich-t">
+    <div class="wrap">
+      <span class="eyebrow" data-a>Lợi ích</span>
+      <h2 id="loi-ich-t" data-a>Vựa được gì khi chuyển qua sổ điện tử</h2>
+      <div class="gains">
+        <div class="gain" data-a="left"><span class="badge"><svg class="ic" aria-hidden="true"><use href="#i-scale"/></svg></span><div><h3>Tính đúng từng đồng</h3><p>Nhập số cân, trừ bì, đơn giá — app tự ra tiền, còn đọc thành chữ để đọc lại cho bà con nghe.</p></div></div>
+        <div class="gain" data-a="left"><span class="badge"><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg></span><div><h3>Nợ nần có hạn rõ ràng</h3><p>Ai nợ mình, mình nợ ai, hẹn ngày nào. Khoản quá hạn tự nổi lên đầu, trả một phần cũng ghi được.</p></div></div>
+        <div class="gain" data-a="left"><span class="badge"><svg class="ic" aria-hidden="true"><use href="#i-offline"/></svg></span><div><h3>Mất sóng vẫn cân bình thường</h3><p>Phiếu ghi thẳng vào máy. Có mạng lại thì app tự đồng bộ lên máy chủ, không phải làm gì thêm.</p></div></div>
+        <div class="gain" data-a="left"><span class="badge"><svg class="ic" aria-hidden="true"><use href="#i-bookmark"/></svg></span><div><h3>Sổ không còn sợ mất</h3><p>Dùng gói trả phí thì đổi máy hay mất máy, đăng nhập lại là sổ về đủ. Nhiều máy dùng chung một sổ.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section id="tinh-nang" aria-labelledby="tinh-nang-t">
+    <div class="wrap">
+      <span class="eyebrow" data-a>Tính năng chính</span>
+      <h2 id="tinh-nang-t" data-a>Đủ cho việc mua bán hằng ngày của vựa</h2>
+      <ul class="crops" data-a aria-label="Mặt hàng có sẵn"><li>Cao su</li><li>Điều</li><li>Cà phê</li><li>Hồ tiêu</li></ul>
+      <div class="feats">
+        <div class="feat" data-a><svg class="ic" aria-hidden="true"><use href="#i-receipt"/></svg><div><h3>Phiếu mua &amp; phiếu bán</h3><p>Cân được, trừ bì, đơn giá — app tự tính tiền.</p></div></div>
+        <div class="feat" data-a><svg class="ic" aria-hidden="true"><use href="#i-wallet"/></svg><div><h3>Trả đủ hoặc ghi nợ</h3><p>Chốt phiếu bằng một chạm, trả một phần cũng được.</p></div></div>
+        <div class="feat" data-a><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg><div><h3>Công nợ có hạn</h3><p>Hẹn ngày trả, khoản quá hạn hiện lên trước.</p></div></div>
+        <div class="feat" data-a><svg class="ic" aria-hidden="true"><use href="#i-box"/></svg><div><h3>Tồn kho</h3><p>Hàng vào, hàng ra, còn bao nhiêu từng mặt hàng.</p></div></div>
+        <div class="feat" data-a><svg class="ic" aria-hidden="true"><use href="#i-users"/></svg><div><h3>Nông hộ &amp; người mua</h3><p>Danh bạ riêng, xem lịch sử và dư nợ từng người.</p></div></div>
+        <div class="feat" data-a><svg class="ic" aria-hidden="true"><use href="#i-tag"/></svg><div><h3>Quy tắc giá</h3><p>Khoản cộng, khoản trừ đặt sẵn, tự áp vào phiếu.</p></div></div>
+        <div class="feat" data-a><svg class="ic" aria-hidden="true"><use href="#i-sheet"/></svg><div><h3>Báo cáo thuế ra Excel</h3><p>Xuất file đưa kế toán, khỏi chép lại.</p></div></div>
+        <div class="feat" data-a><svg class="ic" aria-hidden="true"><use href="#i-send"/></svg><div><h3>Gửi Zalo hoặc in</h3><p>Biên nhận gửi thẳng cho bà con, hay in ra giấy.</p></div></div>
+        <div class="feat" data-a><svg class="ic" aria-hidden="true"><use href="#i-keypad"/></svg><div><h3>Bàn phím số lớn</h3><p>Phím to, đeo găng tay vẫn bấm trúng.</p></div></div>
+        <div class="feat" data-a><svg class="ic" aria-hidden="true"><use href="#i-sun"/></svg><div><h3>Trong nhà · Ngoài nắng · Ban đêm</h3><p>Ba chế độ xem, đứng giữa nắng vẫn đọc rõ.</p></div></div>
+        <div class="feat" data-a><svg class="ic" aria-hidden="true"><use href="#i-bookmark"/></svg><div><h3>Phiếu để dành</h3><p>Đang cân dở, để đó, lát nữa chốt sau.</p></div></div>
+        <div class="feat" data-a><svg class="ic" aria-hidden="true"><use href="#i-play"/></svg><div><h3>Dữ liệu mẫu</h3><p>Bấm xem thử trước khi nhập sổ thật.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section id="cach-dung" aria-labelledby="cach-dung-t">
+    <div class="wrap">
+      <span class="eyebrow" data-a>Cách dùng</span>
+      <h2 id="cach-dung-t" data-a>Bốn bước là có phiếu đầu tiên</h2>
+      <ol class="steps">
+        <li data-a><h3>Mở app</h3><p>Vào thumua365.id.vn trên điện thoại, cài lên màn hình chính để mở như app. Bản Android sắp có.</p></li>
+        <li data-a><h3>Thêm nông hộ, mặt hàng</h3><p>Hoặc bấm “dữ liệu mẫu” để xem thử trước. Tên mới gõ lúc lập phiếu cũng tự được lưu.</p></li>
+        <li data-a><h3>Lập phiếu</h3><p>Nhập số cân, trừ bì, đơn giá trên bàn phím số lớn. Tiền tự ra, đọc lại bằng chữ.</p></li>
+        <li data-a><h3>Chốt phiếu</h3><p>Trả đủ hoặc ghi nợ, rồi gửi biên nhận qua Zalo hay in cho bà con.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section id="ai-dung" aria-labelledby="ai-dung-t">
+    <div class="wrap">
+      <span class="eyebrow" data-a>Ai dùng được</span>
+      <h2 id="ai-dung-t" data-a>Một app, ba kiểu người dùng</h2>
+      <div class="roles">
+        <div class="role" data-a style="--c:var(--green)"><span class="badge"><svg class="ic" aria-hidden="true"><use href="#i-store"/></svg></span><h3>Vựa, thương lái</h3><ul><li>Lập phiếu mua, phiếu bán</li><li>Theo dõi công nợ và tồn kho</li><li>Báo cáo, xuất Excel</li></ul></div>
+        <div class="role" data-a style="--c:#1e40af"><span class="badge"><svg class="ic" aria-hidden="true"><use href="#i-building"/></svg></span><h3>Doanh nghiệp</h3><ul><li>Thêm nhân viên cùng ghi sổ</li><li>Quản lý nhiều chi nhánh</li><li>Báo cáo tổng toàn công ty</li></ul></div>
+        <div class="role" data-a style="--c:var(--earth)"><span class="badge"><svg class="ic" aria-hidden="true"><use href="#i-sprout"/></svg></span><h3>Nông dân</h3><ul><li>Đặt đơn hàng với vựa</li><li>Xem phiếu và số dư với vựa đã liên kết</li><li>Bản đồ tìm vựa gần mình</li></ul></div>
+      </div>
+      <div class="link-band" data-a><svg class="ic" aria-hidden="true"><use href="#i-link"/></svg><p><b>Liên kết giữa các vựa:</b> kết nối bằng mã hoặc quét QR, hai bên cùng nhìn thấy phiếu đã giao dịch với nhau.</p></div>
+    </div>
+  </section>
+
+  <!-- 8 -->
+  <section id="goi" aria-labelledby="goi-t">
+    <div class="wrap">
+      <span class="eyebrow" data-a>Gói dịch vụ</span>
+      <h2 id="goi-t" data-a>Dùng thử 30 ngày, rồi chọn gói hợp với vựa</h2>
+      <div class="plans">
+        <div class="plan" data-a>
+          <h3>Miễn phí</h3>
+          <p class="price">0₫</p>
+          <ul>
+            <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span><b>30 phiếu mỗi tháng</b>, sang tháng đếm lại</span></li>
+            <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Dùng trên một máy, sổ nằm trong máy đó</span></li>
+            <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Lưu tên, số điện thoại nông hộ</span></li>
+            <li class="no"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg><span>Không có công nợ, xuất file, đồng bộ</span></li>
+          </ul>
+        </div>
+        <div class="plan" data-a>
+          <h3>Theo tháng</h3>
+          <p class="price">149.000₫ <small>/ tháng</small></p>
+          <ul>
+            <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span><b>Ghi phiếu không giới hạn</b></span></li>
+            <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Công nợ đầy đủ, hẹn ngày trả</span></li>
+            <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Xuất Excel, PDF cho kế toán</span></li>
+            <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Nhiều máy chung một sổ, mất máy vẫn còn sổ</span></li>
+          </ul>
+        </div>
+        <div class="plan best" data-a>
+          <span class="flag">Tặng 2 tháng</span>
+          <h3>Theo năm</h3>
+          <p class="price">1.490.000₫ <small>/ năm</small></p>
+          <ul>
+            <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Đủ mọi thứ của gói tháng</span></li>
+            <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Trả một lần vào mùa, khỏi nhớ gia hạn</span></li>
+            <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Trả 10 tháng, dùng 12 tháng</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="promise">
+        <p data-a><b>Hết hạn không khoá sổ.</b> Vẫn đọc, xuất file, dùng trên một máy như thường.</p>
+        <p data-a><b>Không tự trừ tiền.</b> Trả bằng chuyển khoản, hết hạn thì bạn tự chuyển tiếp.</p>
+        <p data-a><b>Đổi ý trong 7 ngày</b> thì hoàn lại tiền, không cần lý do.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9 -->
+  <section id="hoi-dap" aria-labelledby="hoi-dap-t">
+    <div class="wrap">
+      <span class="eyebrow" data-a>Câu hỏi thường gặp</span>
+      <h2 id="hoi-dap-t" data-a>Bà con hay hỏi</h2>
+      <div class="faq">
+        <details name="faq" data-a><summary>Có phải tải app về máy không?</summary><p>Không bắt buộc. Mở thumua365.id.vn trên trình duyệt là dùng được ngay; cài lên màn hình chính thì mở như một app bình thường. Bản cài đặt (APK) cho Android đang chuẩn bị, có là trang này cập nhật.</p></details>
+        <details name="faq" data-a><summary>iPhone dùng được không?</summary><p>Được. Mở bằng Safari, bấm nút Chia sẻ (ô vuông có mũi tên đi lên), chọn “Thêm vào MH chính”.</p></details>
+        <details name="faq" data-a><summary>Mất mạng có dùng được không?</summary><p>Được, dùng bình thường. Phiếu ghi thẳng vào máy chứ không đợi gửi lên mạng mới lưu. Có mạng lại thì app tự gửi đi; tắt app giữa chừng cũng không mất.</p></details>
+        <details name="faq" data-a><summary>Đổi điện thoại có mất sổ không?</summary><p>Gói trả phí: mở app trên máy mới, đăng nhập là sổ về đủ. Gói miễn phí: sổ nằm trong máy cũ — vào Tài khoản, bấm “Lưu ra file”, gửi file sang máy mới rồi bấm “Lấy lại từ file”.</p></details>
+        <details name="faq" data-a><summary>Hết hạn gói thì sổ có bị khoá không?</summary><p>Không. App ngừng đồng bộ lên mạng, còn đọc, xuất file và dùng trên một máy thì vẫn như thường. Sổ là của bạn.</p></details>
+        <details name="faq" data-a><summary>Có tự trừ tiền hằng tháng không?</summary><p>Không. Trả bằng chuyển khoản, không ai giữ số thẻ của bạn. Hết hạn thì bạn chủ động chuyển tiếp.</p></details>
+        <details name="faq" data-a><summary>Chưa muốn nhập sổ thật, xem thử được không?</summary><p>Được. Mở app, bấm dùng dữ liệu mẫu để bấm thử đủ mọi màn trước khi ghi phiếu thật.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 -->
+  <section id="bat-dau" aria-labelledby="bat-dau-t">
+    <div class="wrap">
+      <a class="brand" href="#dau" data-a><img src="logo.svg" alt="" width="44" height="44" loading="lazy">THUMUA365</a>
+      <h2 id="bat-dau-t" data-a>Thử một mùa với sổ điện tử</h2>
+      <p class="lede" data-a>Mở app, bấm dữ liệu mẫu, tự tay lập một phiếu. Chừng năm phút, không tốn đồng nào.</p>
+      <div class="btns" data-a>
+        <a class="btn btn-gold" data-link="web" href="https://thumua365.id.vn" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#i-globe"/></svg><span>Mở bản web<small>thumua365.id.vn</small></span></a>
+        <a class="btn btn-line is-soon" data-link="apk" href="#hoi-dap" title="Bản Android đang chuẩn bị"><svg class="ic" aria-hidden="true"><use href="#i-android"/></svg><span>App Android<small><em class="soon">Sắp có</em></small></span></a>
+      </div>
+    </div>
+    <footer class="foot">
+      <span>© 2026 THUMUA365 · Sổ thu mua điện tử cho vựa nông sản</span>
+      <a data-link="web" href="https://thumua365.id.vn">thumua365.id.vn</a>
+    </footer>
+  </section>
+</main>
+</body>
+</html>

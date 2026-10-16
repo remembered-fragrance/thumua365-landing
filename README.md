@@ -1,0 +1,72 @@
+# thumua365-landing — trang giới thiệu THUMUA365
+
+Một trang tĩnh: `index.html` (CSS nằm sẵn trong trang) + `main.js` + `config.js` + logo.
+**Không build, không framework, không thư viện, không công cụ theo dõi.** Cả trang ~47 KB.
+Lighthouse (máy local): Hiệu năng / Truy cập / Thực hành tốt / SEO = 100 cả mobile lẫn desktop.
+
+| File | Là gì |
+|---|---|
+| `index.html` | Toàn bộ nội dung + CSS |
+| `config.js` | **Chỗ duy nhất** chứa link APK và link bản web |
+| `main.js` | Chuyển mục bằng lăn chuột / phím, chấm điều hướng, hiệu ứng khi vào mục, gắn link từ `config.js` |
+| `logo.svg`, `apple-touch-icon.png`, `icon-512.png` | Chép từ `public/` của repo app |
+
+Tắt JavaScript trang vẫn đọc được đủ: chữ hiện sẵn, nút web vẫn bấm được, cuộn bắt mục do CSS lo.
+
+## Xem ở máy
+
+```bash
+python -m http.server 4173 --bind 127.0.0.1
+```
+
+Mở http://127.0.0.1:4173. Trong Claude Code đã có sẵn `.claude/launch.json` (tên `landing`).
+Mở thẳng file `index.html` bằng trình duyệt cũng chạy.
+
+## Khi có file APK
+
+Sửa đúng một dòng trong `config.js`:
+
+```js
+apkUrl: 'https://thumua365.id.vn/tai/thumua365.apk',
+```
+
+Lưu, deploy lại. Mọi nút "App Android · Sắp có" tự thành nút "Tải file APK". Để trống `''` thì
+nút giữ trạng thái "Sắp có" và bấm vào chỉ cuộn tới phần hỏi đáp.
+
+Đổi địa chỉ bản web cũng ở `config.js` (`web`). Trong `index.html` vẫn ghi sẵn
+`https://thumua365.id.vn` làm dự phòng khi JS chưa tải xong — đổi domain thì tìm-thay luôn trong đó
+cho chắc (câu chữ "thumua365.id.vn" trong phần Cách dùng và Hỏi đáp cũng vậy).
+
+## Deploy
+
+Trang tĩnh, đưa nguyên thư mục lên là chạy.
+
+**Vercel** (gợi ý): New Project → chọn repo này → Framework Preset **Other**, Build Command để
+trống, Output Directory để trống → Deploy. Gắn domain trong Settings → Domains.
+Hoặc bằng lệnh: `npx vercel --prod` trong thư mục này.
+
+**Netlify / Cloudflare Pages / GitHub Pages**: thư mục xuất bản là gốc repo, không có lệnh build.
+
+Máy chủ nên bật nén gzip/brotli (Vercel, Netlify, Cloudflare tự bật) — `python -m http.server`
+không nén nên Lighthouse chạy local sẽ nhắc mục này.
+
+## Cách trang chuyển mục
+
+- Màn ≥ 768px rộng và ≥ 600px cao: CSS `scroll-snap-type: y mandatory`, cộng `main.js` bắt lăn
+  chuột để **mỗi lần lăn sang đúng một mục** (lăn liền tay hay quán tính touchpad cũng chỉ một mục).
+- Điện thoại: `proximity` — vuốt tự nhiên, gần mép mục thì hít vào, không giật ngược.
+- Mục cao hơn màn hình (bảng giá trên máy tính bảng, tính năng trên điện thoại): cuộn bình thường
+  tới hết mục rồi mới sang mục kế.
+- Phím ↑ ↓ PageUp PageDown Home End và chấm bên phải đều chuyển mục.
+- `prefers-reduced-motion`: tắt mọi hiệu ứng, chuyển mục không trượt, chữ hiện ngay.
+
+## Nội dung
+
+Giá, hạn mức gói miễn phí, 30 ngày dùng thử, "hết hạn không khoá sổ / không tự trừ tiền / hoàn tiền
+7 ngày" chép đúng từ `src/config.ts` và `site/index.html` của repo app. **Đổi giá bên app thì sửa
+cả ở đây** — trang này không tự đọc `config.ts`.
+
+Không có số liệu người dùng hay lời chứng thực. Phiếu cà phê ở phần mở đầu ghi rõ "Số liệu ví dụ".
+
+Trang điều khoản / quyền riêng tư nằm ở `site/` của repo app, chưa liên kết từ đây vì chưa rõ sẽ
+xuất bản ở domain nào.
