@@ -145,7 +145,9 @@ main>section>.wrap,.foot{position:relative;z-index:1}
 .in .bg{transform:none}
 
 /* ===== Dải cảnh làng quê ở đáy mỗi mục (vẽ SVG, không chữ) ===== */
-.scene,.sky{position:absolute;left:0;width:100%;pointer-events:none}
+/* overflow:visible: trên màn rất rộng, cảnh phóng theo bề ngang nhưng chiều cao bị chặn, phần trên tràn ra
+   ngoài khung SVG. Để nó vẽ tiếp lên trên (vẫn nằm sau chữ) thay vì bị cắt phẳng; mép mục đã có overflow:hidden. */
+.scene,.sky{position:absolute;left:0;width:100%;pointer-events:none;overflow:visible}
 .scene{bottom:-1px;height:clamp(96px,13.9vw,260px);transition:opacity 1s ease,transform 1s cubic-bezier(.2,.8,.2,1)}
 .sky{top:0;height:clamp(120px,15.3vw,300px)}
 main>section.sc{padding-bottom:calc(clamp(96px,13.9vw,260px)*.7 + 28px)}
