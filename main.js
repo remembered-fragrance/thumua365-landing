@@ -8,15 +8,26 @@
     if (links.web) a.href = links.web;
   });
 
-  document.querySelectorAll('[data-link="apk"]').forEach(function (a) {
-    if (!links.apkUrl) return; // giữ "Sắp có" viết sẵn trong HTML (bấm vào thì tới phần hỏi đáp)
-    a.href = links.apkUrl;
-    a.setAttribute('download', '');
-    a.removeAttribute('title');
-    a.classList.remove('is-soon');
-    var note = a.querySelector('.soon');
-    if (note) note.textContent = 'Tải file APK';
-  });
+  // Nút APK: có apkUrl thì thành nút tải thật, không có thì giữ "Sắp có" viết sẵn trong HTML.
+  // Không tự dò file: dò khi chưa có file là một lỗi 404 đỏ trong console.
+  if (links.apkUrl) {
+    var apks = document.querySelectorAll('[data-link="apk"]');
+    var label = function (text) {
+      apks.forEach(function (a) { var n = a.querySelector('.soon'); if (n) n.textContent = text; });
+    };
+    apks.forEach(function (a) {
+      a.href = links.apkUrl;
+      a.setAttribute('download', '');
+      a.removeAttribute('title');
+      a.classList.remove('is-soon');
+    });
+    label('Tải file APK');
+    // File nằm cùng trang thì hỏi dung lượng để ghi lên nút (máy chủ khác thì CORS chặn, bỏ qua).
+    if (!/^https?:/.test(links.apkUrl)) fetch(links.apkUrl, { method: 'HEAD' }).then(function (r) {
+      var bytes = Number(r.ok && r.headers.get('content-length'));
+      if (bytes) label('Tải file APK · ' + (bytes / 1048576).toFixed(bytes < 10485760 ? 1 : 0).replace('.', ',') + ' MB');
+    }).catch(function () {});
+  }
 
   // Đánh số thứ tự cho từng phần tử chuyển động trong mục, để chúng hiện lần lượt.
   var sections = Array.prototype.slice.call(document.querySelectorAll('main > section'));

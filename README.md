@@ -24,17 +24,23 @@ Mở thẳng file `index.html` bằng trình duyệt cũng chạy.
 
 ## Khi có file APK
 
-Sửa đúng một dòng trong `config.js`:
+1. Chép file vào `tai/thumua365.apk`.
+2. Trong `config.js`, điền:
 
-```js
-apkUrl: 'https://thumua365.id.vn/tai/thumua365.apk',
-```
+   ```js
+   apkUrl: 'tai/thumua365.apk',
+   ```
 
-Lưu, deploy lại. Mọi nút "App Android · Sắp có" tự thành nút "Tải file APK". Để trống `''` thì
-nút giữ trạng thái "Sắp có" và bấm vào chỉ cuộn tới phần hỏi đáp.
+3. Deploy lại.
+
+Mọi nút "App Android · Sắp có" tự thành nút "Tải file APK · 24 MB" (dung lượng trang tự đọc từ máy
+chủ). Để file ở chỗ khác thì điền URL đầy đủ `https://...`; khi đó nút không ghi dung lượng.
+Để trống `''` thì nút giữ "Sắp có" và bấm vào chỉ cuộn tới phần hỏi đáp.
+
+Trang cố ý không tự dò xem file có chưa: dò lúc chưa có file sẽ để lại lỗi 404 đỏ trong console.
 
 Đổi địa chỉ bản web cũng ở `config.js` (`web`). Trong `index.html` vẫn ghi sẵn
-`https://thumua365.id.vn` làm dự phòng khi JS chưa tải xong — đổi domain thì tìm-thay luôn trong đó
+`https://thumua365.id.vn` làm dự phòng khi JS chưa tải xong. Đổi domain thì tìm-thay luôn trong đó
 cho chắc (câu chữ "thumua365.id.vn" trong phần Cách dùng và Hỏi đáp cũng vậy).
 
 ## Deploy
