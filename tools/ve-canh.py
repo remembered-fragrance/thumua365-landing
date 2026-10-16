@@ -11,10 +11,14 @@ def svg(body, cls='scene'):
     return (f'    <svg class="{cls}" viewBox="0 0 1440 200" preserveAspectRatio="xMidYMax slice" aria-hidden="true">'
             + body + '</svg>\n')
 
+def crown(x, inner):
+    # Tán cây đung đưa quanh gốc tán (CSS .crown); lệch nhịp theo vị trí để các cây không lắc đều nhau.
+    return f'<g class="crown" style="animation-delay:-{x % 7 * .7:.1f}s">{inner}</g>'
+
 def tree(x, y, r, c1, c2, trunk):
     return (f'<rect x="{x-4}" y="{y}" width="8" height="{170-y}" fill="{trunk}"/>'
-            f'<circle cx="{x}" cy="{y-r*.4:.0f}" r="{r}" fill="{c1}"/><circle cx="{x+r*.6:.0f}" cy="{y-r*.1:.0f}" r="{r*.7:.0f}" fill="{c2}"/>'
-            f'<circle cx="{x-r*.6:.0f}" cy="{y:.0f}" r="{r*.6:.0f}" fill="{c2}"/>')
+            + crown(x, f'<circle cx="{x}" cy="{y-r*.4:.0f}" r="{r}" fill="{c1}"/><circle cx="{x+r*.6:.0f}" cy="{y-r*.1:.0f}" r="{r*.7:.0f}" fill="{c2}"/>'
+                       f'<circle cx="{x-r*.6:.0f}" cy="{y:.0f}" r="{r*.6:.0f}" fill="{c2}"/>'))
 
 def sack(x, y, w=34, h=24, fill='#e3c189', st='#b8894e'):
     return f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="8" fill="{fill}" stroke="{st}" stroke-width="1.5"/>'
@@ -35,11 +39,12 @@ sc['vi-sao'] = svg(b + tree(130, 120, 40, '#a9cc96', '#8fbf7c', '#8a5a34') + tre
     + sack(1006, 148) + sack(1042, 148) + sack(1024, 124)
     + '<rect x="688" y="164" width="84" height="8" rx="2" fill="#7b7468"/><rect x="760" y="124" width="5" height="42" fill="#7b7468"/>'
     + '<circle cx="762" cy="118" r="12" fill="#fff" stroke="#7b7468" stroke-width="3"/><path d="M762 118l6-7" stroke="#d4462a" stroke-width="2"/>'
-    + '<g class="truck"><rect x="420" y="118" width="160" height="42" rx="4" fill="#2f7d4f"/>'
+    + '<g class="truck"><g class="dust">' + ''.join(f'<circle cx="{442-i*10}" cy="{168-i*3}" r="{5+i*2}" fill="#d9ccb0" style="animation-delay:{i*.12:.2f}s"/>' for i in range(3)) + '</g>'
+    + '<g class="truck-body"><rect x="420" y="118" width="160" height="42" rx="4" fill="#2f7d4f"/>'
     + sack(430, 96) + sack(468, 96) + sack(506, 96) + sack(544, 96, 30) + sack(449, 74, 36, 22) + sack(487, 74, 36, 22)
-    + '<path fill="#e6a817" d="M582 122h40l22 22v18h-62z"/><path fill="#d7ecf5" d="M592 128h26l16 16h-42z"/>'
-    + '<g fill="#33241a"><circle cx="462" cy="162" r="13"/><circle cx="612" cy="162" r="13"/></g>'
-    + '<g fill="#cfc6b6"><circle cx="462" cy="162" r="5"/><circle cx="612" cy="162" r="5"/></g></g>' + f)
+    + '<path fill="#e6a817" d="M582 122h40l22 22v18h-62z"/><path fill="#d7ecf5" d="M592 128h26l16 16h-42z"/></g>'
+    + ''.join(f'<g class="wheel"><circle cx="{cx}" cy="162" r="13" fill="#33241a"/><path d="M{cx-8} 162h16M{cx} 154v16" stroke="#cfc6b6" stroke-width="2.5"/><circle cx="{cx}" cy="162" r="4" fill="#cfc6b6"/></g>' for cx in (462, 612))
+    + '</g>' + f)
 
 # 2. Chuyện của vựa — xóm đêm sáng đèn, cây cau, khói bếp; trời sao ở trên
 def house(x, w, h, roof, wall, win):
@@ -72,15 +77,33 @@ sky = ('    <svg class="sky" viewBox="0 0 1440 220" preserveAspectRatio="xMidYMi
        '<path d="M1244 44a28 28 0 1 0 26 44 22 22 0 1 1-26-44z" fill="#f8e6b0"/></svg>\n')
 sc['van-de'] = sky + sc['van-de']
 
-# 3. Lợi ích — rẫy cao su có chén hứng mủ, người cạo mủ
-rows = ''
-for i, x in enumerate(range(40, 1440, 112)):
-    h = 112 + (i % 3) * 6
-    rows += (f'<rect x="{x}" y="{170-h}" width="14" height="{h}" fill="#b7c3a3"/>'
-             f'<path d="M{x} {128-(i%2)*6}l14-9" stroke="#8a9479" stroke-width="2"/><rect x="{x+3}" y="{132-(i%2)*6}" width="9" height="7" rx="2" fill="#fff"/>')
-canopy = ''.join(f'<circle cx="{x}" cy="{50+(i%3)*8}" r="{36+(i%4)*5}" fill="{"#a9d199" if i%2 else "#95c585"}"/>' for i, x in enumerate(range(0, 1500, 70)))
-sc['loi-ich'] = svg('<path fill="#d3e6ca" d="M0 150C300 140 700 158 1000 146S1300 144 1440 150V200H0Z"/>' + canopy + rows
-    + '<path fill="#c6ddb9" d="M0 174C320 164 640 182 960 170S1300 168 1440 176V200H0Z"/>')
+# 3. Lợi ích — rẫy cao su: hàng xa nhạt và nhỏ, hàng gần có vết cạo xoắn và chén hứng mủ
+def rubber(x, h, s, near):
+    top = 170 - h
+    w = 7 * s
+    trunk = '#b9c2a6' if near else '#ccd6c0'
+    shade = '#a2ac8e' if near else '#bcc7ae'
+    dark, mid, light = ('#7fb36d', '#95c585', '#b3d8a3') if near else ('#b4d6a6', '#c2dfb6', '#d3e9c8')
+    out = (f'<path d="M{x-w:.1f} 170L{x-w*.7:.1f} {top}H{x+w*.7:.1f}L{x+w:.1f} 170Z" fill="{trunk}"/>'
+           f'<path d="M{x+w*.15:.1f} 170L{x+w*.1:.1f} {top}H{x+w*.7:.1f}L{x+w:.1f} 170Z" fill="{shade}"/>')
+    if near:
+        y = top + h * .55
+        out += (f'<path d="M{x-w:.1f} {y:.0f}l{2*w:.1f}-7M{x-w:.1f} {y+7:.0f}l{2*w:.1f}-7" stroke="#8a9479" stroke-width="1.6"/>'
+                f'<path d="M{x-4} {y+12:.0f}h8l-1 7h-6z" fill="#fff"/><path d="M{x} {y+4:.0f}v7" stroke="#fff" stroke-width="1.4"/>')
+    c = top - 8 * s
+    out += crown(x, f'<ellipse cx="{x}" cy="{c:.0f}" rx="{46*s:.0f}" ry="{32*s:.0f}" fill="{dark}"/>'
+                    f'<ellipse cx="{x-28*s:.0f}" cy="{c+8*s:.0f}" rx="{28*s:.0f}" ry="{20*s:.0f}" fill="{dark}"/>'
+                    f'<ellipse cx="{x+30*s:.0f}" cy="{c+6*s:.0f}" rx="{30*s:.0f}" ry="{22*s:.0f}" fill="{dark}"/>'
+                    f'<ellipse cx="{x-6*s:.0f}" cy="{c-10*s:.0f}" rx="{34*s:.0f}" ry="{22*s:.0f}" fill="{mid}"/>'
+                    f'<ellipse cx="{x-14*s:.0f}" cy="{c-16*s:.0f}" rx="{16*s:.0f}" ry="{10*s:.0f}" fill="{light}"/>')
+    return out
+random.seed(5)
+far = ''.join(rubber(x + random.randint(-12, 12), random.randint(70, 86), .7, False) for x in range(-20, 1500, 96))
+near = ''.join(rubber(x + random.randint(-18, 18), random.randint(96, 112), 1, True) for x in range(30, 1480, 150))
+tufts = ''.join(f'<path d="M{x} 176q2-8 4 0q2-6 4 0" stroke="#9cc48c" stroke-width="2" fill="none"/>' for x in range(60, 1440, 137))
+sc['loi-ich'] = svg('<path fill="#d3e6ca" d="M0 150C300 140 700 158 1000 146S1300 144 1440 150V200H0Z"/>' + far
+    + '<path fill="#cbe0bf" d="M0 162C300 154 700 168 1000 158S1300 156 1440 162V200H0Z"/>' + near
+    + '<path fill="#c0d8b2" d="M0 174C320 164 640 182 960 170S1300 168 1440 176V200H0Z"/>' + tufts)
 
 # 4. Tính năng — cây điều trĩu trái, xe đạp chở giỏ điều
 def cashew_tree(x, r):
@@ -89,8 +112,9 @@ def cashew_tree(x, r):
         cx, cy = x + dx * r, 92 + dy * r
         col = '#e0573b' if k % 2 else '#f2b53a'
         fr += f'<path d="M{cx-5:.0f} {cy:.0f}q5-10 10 0l-2 10h-6z" fill="{col}"/><path d="M{cx-3:.0f} {cy+10:.0f}q3 6 7 1" stroke="#8a6a4a" stroke-width="3" fill="none"/>'
-    return (f'<rect x="{x-5}" y="96" width="10" height="74" fill="#7a5638"/><ellipse cx="{x}" cy="84" rx="{r}" ry="{r*.62:.0f}" fill="#6fa35c"/>'
-            f'<ellipse cx="{x+r*.35:.0f}" cy="74" rx="{r*.55:.0f}" ry="{r*.35:.0f}" fill="#83b56f"/>' + fr)
+    return (f'<rect x="{x-5}" y="96" width="10" height="74" fill="#7a5638"/>'
+            + crown(x, f'<ellipse cx="{x}" cy="84" rx="{r}" ry="{r*.62:.0f}" fill="#6fa35c"/>'
+                       f'<ellipse cx="{x+r*.35:.0f}" cy="74" rx="{r*.55:.0f}" ry="{r*.35:.0f}" fill="#83b56f"/>' + fr))
 nuts = ''.join(f'<path d="M{x} 113q6-8 12 0q-2 7-6 4q-4 3-6-4z" fill="#e3c189" stroke="#b8894e" stroke-width="1"/>' for x in range(624, 672, 10))
 bike = ('<g transform="translate(660 122)" stroke="#33241a" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round">'
         '<circle cx="0" cy="38" r="20"/><circle cx="92" cy="38" r="20"/>'
@@ -123,7 +147,7 @@ sc['goi'] = svg('<g class="sunup"><g stroke="#f6d77a" stroke-width="10" stroke-l
 # 8. Hỏi đáp — gốc cây, võng đung đưa, nón lá, ấm trà
 sc['hoi-dap'] = svg('<path fill="#ece3cf" d="M0 150C300 138 700 158 1000 146S1300 142 1440 150V200H0Z"/>'
     + tree(150, 120, 40, '#a9cc96', '#8fbf7c', '#8a5a34') + tree(1320, 118, 44, '#a9cc96', '#8fbf7c', '#8a5a34')
-    + '<rect x="1004" y="60" width="16" height="112" fill="#8a5a34"/><circle cx="1012" cy="64" r="50" fill="#95c585"/><circle cx="1054" cy="80" r="36" fill="#a9d199"/><circle cx="968" cy="82" r="34" fill="#a9d199"/>'
+    + '<rect x="1004" y="60" width="16" height="112" fill="#8a5a34"/>' + crown(1012, '<circle cx="1012" cy="64" r="50" fill="#95c585"/><circle cx="1054" cy="80" r="36" fill="#a9d199"/><circle cx="968" cy="82" r="34" fill="#a9d199"/>') + ''
     + '<rect x="768" y="96" width="8" height="76" fill="#8a5a34"/>'
     + '<g class="sway"><path d="M772 104C820 150 950 150 1006 104" stroke="#b8894e" stroke-width="2" fill="none"/>'
     + '<path d="M780 110C826 160 948 160 998 110C946 142 830 142 780 110Z" fill="#e6a817"/><path d="M800 124C850 150 930 150 980 124" stroke="#d4462a" stroke-width="3" fill="none"/></g>'
