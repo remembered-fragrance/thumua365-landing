@@ -22,22 +22,18 @@ python -m http.server 4173 --bind 127.0.0.1
 Mở http://127.0.0.1:4173. Trong Claude Code đã có sẵn `.claude/launch.json` (tên `landing`).
 Mở thẳng file `index.html` bằng trình duyệt cũng chạy.
 
-## Khi có file APK
+## File APK
 
-1. Chép file vào `tai/thumua365.apk`.
-2. Trong `config.js`, điền:
+Trang đã viết sẵn như có app Android: hai nút "App Android · Tải file APK" trỏ tới
+`tai/thumua365.apk`, phần Cách dùng và Hỏi đáp nói "tải file APK về cài".
 
-   ```js
-   apkUrl: 'tai/thumua365.apk',
-   ```
+**Trước khi deploy phải chép file thật vào `tai/thumua365.apk`.** Chưa có file thì bấm nút ra lỗi
+không tìm thấy, và console có một lỗi 404. Có file rồi thì nút tự ghi kèm dung lượng
+("Tải file APK · 24 MB").
 
-3. Deploy lại.
-
-Mọi nút "App Android · Sắp có" tự thành nút "Tải file APK · 24 MB" (dung lượng trang tự đọc từ máy
-chủ). Để file ở chỗ khác thì điền URL đầy đủ `https://...`; khi đó nút không ghi dung lượng.
-Để trống `''` thì nút giữ "Sắp có" và bấm vào chỉ cuộn tới phần hỏi đáp.
-
-Trang cố ý không tự dò xem file có chưa: dò lúc chưa có file sẽ để lại lỗi 404 đỏ trong console.
+Để file ở chỗ khác thì điền URL đầy đủ vào `apkUrl` trong `config.js` (khi đó nút không ghi dung
+lượng). Để trống `''` thì nút đổi về "Sắp có" và bấm vào chỉ cuộn tới phần hỏi đáp; nhớ sửa lại
+câu chữ ở phần Cách dùng và Hỏi đáp cho khớp.
 
 Đổi địa chỉ bản web cũng ở `config.js` (`web`). Trong `index.html` vẫn ghi sẵn
 `https://thumua365.id.vn` làm dự phòng khi JS chưa tải xong. Đổi domain thì tìm-thay luôn trong đó
