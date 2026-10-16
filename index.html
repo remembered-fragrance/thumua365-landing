@@ -80,11 +80,16 @@ main>section{position:relative;min-height:100vh;min-height:100svh;display:flex;a
   .topnav a{padding:8px 10px;font-size:.92rem}
 }
 @media (max-width:599px){.topnav{justify-content:space-between;width:calc(100% + 20px);margin:0 -10px}}
-/* Dấu báo cuộn: bám đáy màn hình khi đang ở trang đầu (trang đầu trên điện thoại cao hơn một màn). */
-.scroll-cue{position:fixed;left:50%;bottom:20px;translate:-50% 0;z-index:4;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;color:#fff;background:rgba(11,61,36,.6);border:1px solid rgba(255,255,255,.35);box-shadow:0 6px 18px -6px rgba(0,0,0,.5);transition:opacity .3s,background-color .2s}
-.scroll-cue:hover{background:rgba(11,61,36,.85)}
-.scroll-cue svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;animation:cue 1.8s ease-in-out infinite}
-@keyframes cue{0%,100%{translate:0 -3px;opacity:.65}50%{translate:0 4px;opacity:1}}
+/* Dấu báo cuộn: mũi tên nhấp nháy giữa phần xanh đậm, ngay trên dải đồi. Màn hẹp thì trang đầu cao
+   hơn một màn, nên mũi tên nằm ở khoảng xanh giữa chữ và phiếu mẫu, chỗ cuối màn đầu tiên. */
+.scroll-cue{position:absolute;left:50%;bottom:172px;translate:-50% 0;z-index:4;display:grid;place-items:center;width:48px;height:40px;color:#fff;transition:opacity .3s}
+/* Lưới trang đầu để "tĩnh" cho mũi tên neo theo đáy cả mục (trên máy tính); chữ và phiếu vẫn nằm trên lá, mặt trời. */
+#dau .hero{position:static}
+.hero>div,.hero>figure{position:relative;z-index:1}
+@media (max-width:899px){.scroll-cue{position:static;translate:none;justify-self:center;margin:-18px 0 -10px}}
+.scroll-cue svg{width:34px;height:34px;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 1px 3px rgba(0,0,0,.45));animation:cue 1.6s ease-in-out infinite}
+.scroll-cue:hover svg{animation-duration:.8s}
+@keyframes cue{0%,100%{translate:0 -4px;opacity:.3}50%{translate:0 4px;opacity:1}}
 .js .scroll-cue{opacity:0;pointer-events:none}
 .js #dau.on .scroll-cue{opacity:1;pointer-events:auto}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 1.2rem;padding:0;list-style:none}
@@ -418,7 +423,6 @@ main>section.sc{padding-bottom:calc(clamp(96px,13.9vw,260px)*.7 + 28px)}
         <a class="btn btn-gold btn-sm" data-link="web" href="https://thumua365.id.vn" rel="noopener">Mở bản web</a>
       </div>
     </header>
-    <a class="scroll-cue" href="#vi-sao" aria-label="Cuộn xuống xem tiếp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></a>
     <div class="sun" aria-hidden="true"></div>
     <i class="leaf" style="top:22%;left:6%" aria-hidden="true"></i>
     <i class="leaf" style="top:62%;left:46%" aria-hidden="true"></i>
@@ -439,6 +443,7 @@ main>section.sc{padding-bottom:calc(clamp(96px,13.9vw,260px)*.7 + 28px)}
         <p class="fine" data-a style="--i:5">Đăng ký là có 30 ngày dùng đủ tính năng · không hỏi thẻ · không tự trừ tiền</p>
       </div>
 
+      <a class="scroll-cue" href="#vi-sao" aria-label="Cuộn xuống xem tiếp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></a>
       <figure class="phone" data-a style="--i:3;margin:0" aria-label="Ví dụ một phiếu mua cà phê trong app">
         <div class="phone-in">
           <div class="phone-top"><b>Phiếu mua · Chú Tư</b><span class="tag">Số liệu ví dụ</span></div>
