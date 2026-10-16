@@ -16,7 +16,7 @@ Tắt JavaScript trang vẫn đọc được đủ: chữ hiện sẵn, nút web
 ## Xem ở máy
 
 ```bash
-python -m http.server 4173 --bind 127.0.0.1
+python tools/xem-thu.py
 ```
 
 Mở http://127.0.0.1:4173. Trong Claude Code đã có sẵn `.claude/launch.json` (tên `landing`).
