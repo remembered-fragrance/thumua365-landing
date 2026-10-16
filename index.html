@@ -326,9 +326,10 @@ main>section.sc{padding-bottom:calc(clamp(96px,13.9vw,260px)*.7 + 28px)}
 /* ===== 9. Hỏi đáp ===== */
 .faq{max-width:52rem;margin-top:1.6rem}
 .faq details{border-bottom:1px solid var(--rule)}
-.faq summary{display:flex;justify-content:space-between;gap:16px;padding:16px 0;font-weight:700;font-size:1.05rem;cursor:pointer;list-style:none}
+.faq summary{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 0;font-weight:700;font-size:1.05rem;cursor:pointer;list-style:none}
 .faq summary::-webkit-details-marker{display:none}
-.faq summary::after{content:"+";flex:none;display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--green-l);color:var(--green);font-size:1.3rem;font-weight:700;transition:transform .2s}
+/* Dấu cộng vẽ bằng hai vạch chứ không dùng ký tự "+": ký tự nằm theo đường chân chữ nên lệch tâm tuỳ font. */
+.faq summary::after{content:"";flex:none;width:30px;height:30px;border-radius:50%;background:linear-gradient(var(--green),var(--green)) center/12px 2.5px no-repeat,linear-gradient(var(--green),var(--green)) center/2.5px 12px no-repeat,var(--green-l);transition:transform .2s}
 .faq details[open] summary::after{transform:rotate(45deg)}
 .faq details p{color:var(--ink-2);margin:0 0 16px}
 /* Mở/đóng mượt trên trình duyệt mới; trình duyệt cũ vẫn mở ngay như thường. */
