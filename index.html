@@ -95,6 +95,10 @@ main>section>.wrap,.foot{position:relative;z-index:1}
 .s1::before{transform:rotate(-3deg)}
 .s2{right:3%;bottom:0;transform:rotate(3.5deg)}
 .s2::before{transform:rotate(4deg)}
+.head-row{display:grid;gap:4px 40px;align-items:center}
+@media (min-width:900px){.head-row{grid-template-columns:1fr minmax(300px,400px)}}
+.album-sm{width:100%;max-width:400px;height:auto;aspect-ratio:400/220;margin:8px 0 0}
+.album-sm .snap{width:58%;padding:8px 8px 22px}
 .crops li{display:inline-flex;align-items:center;gap:8px;padding:4px 16px 4px 4px}
 .crops img{width:44px;height:44px;border-radius:50%;object-fit:cover;background:var(--rule)}
 .role{overflow:hidden}
@@ -390,8 +394,14 @@ main>section.sc{padding-bottom:calc(clamp(96px,13.9vw,260px)*.7 + 28px)}
   <!-- 3 -->
   <section id="van-de" class="sc" data-crop="tieu" aria-labelledby="van-de-t">
     <div class="wrap">
-      <span class="eyebrow" data-a>Chuyện của vựa</span>
-      <h2 id="van-de-t" data-a>Những chuyện vựa nào cũng từng gặp</h2>
+      <div class="head-row">
+        <div><span class="eyebrow" data-a>Chuyện của vựa</span>
+        <h2 id="van-de-t" data-a>Những chuyện vựa nào cũng từng gặp</h2></div>
+        <div class="album album-sm" data-a="zoom">
+          <figure class="snap s1"><img src="img/so-so-tay-360.webp" srcset="img/so-so-tay-360.webp 360w, img/so-so-tay.webp 640w" sizes="(min-width:900px) 240px, 58vw" width="640" height="480" alt="Trang sổ ghi chép bằng tay" loading="lazy" decoding="async"></figure>
+          <figure class="snap s2"><img src="img/so-may-tinh-360.webp" srcset="img/so-may-tinh-360.webp 360w, img/so-may-tinh.webp 640w" sizes="(min-width:900px) 240px, 58vw" width="640" height="480" alt="Máy tính bỏ túi giữa đống biên nhận" loading="lazy" decoding="async"></figure>
+        </div>
+      </div>
       <div class="pains">
         <div class="pain" data-a><h3><svg class="ic" aria-hidden="true"><use href="#i-calc"/></svg>Bấm máy tính, chép tay</h3><p>Trừ bì, nhân giá, cộng dồn — làm tay cả trăm phiếu một ngày, sai một số là lệch cả sổ.</p></div>
         <div class="pain" data-a><h3><svg class="ic" aria-hidden="true"><use href="#i-wallet"/></svg>Nợ ghi mỗi chỗ một ít</h3><p>Sổ này một ít, tin nhắn một ít, trong đầu một ít. Tới hạn ai nhớ thì đòi, quên thì thôi.</p></div>
@@ -408,8 +418,14 @@ main>section.sc{padding-bottom:calc(clamp(96px,13.9vw,260px)*.7 + 28px)}
   <!-- 4 -->
   <section id="loi-ich" class="sc" data-crop="lacaosu" aria-labelledby="loi-ich-t">
     <div class="wrap">
-      <span class="eyebrow" data-a>Lợi ích</span>
-      <h2 id="loi-ich-t" data-a>Vựa được gì khi chuyển qua sổ điện tử</h2>
+      <div class="head-row">
+        <div><span class="eyebrow" data-a>Lợi ích</span>
+        <h2 id="loi-ich-t" data-a>Vựa được gì khi chuyển qua sổ điện tử</h2></div>
+        <div class="album album-sm" data-a="zoom">
+          <figure class="snap s1"><img src="img/so-can-hang-360.webp" srcset="img/so-can-hang-360.webp 360w, img/so-can-hang.webp 640w" sizes="(min-width:900px) 240px, 58vw" width="640" height="480" alt="Bao hàng đặt cạnh cái cân" loading="lazy" decoding="async"></figure>
+          <figure class="snap s2"><img src="img/so-dien-thoai-360.webp" srcset="img/so-dien-thoai-360.webp 360w, img/so-dien-thoai.webp 640w" sizes="(min-width:900px) 240px, 58vw" width="640" height="480" alt="Tay cầm điện thoại giữa ruộng" loading="lazy" decoding="async"></figure>
+        </div>
+      </div>
       <div class="gains">
         <div class="gain" data-a="left"><span class="badge"><svg class="ic" aria-hidden="true"><use href="#i-scale"/></svg></span><div><h3>Tính đúng từng đồng</h3><p>Nhập số cân, trừ bì, đơn giá — app tự ra tiền, còn đọc thành chữ để đọc lại cho bà con nghe.</p></div></div>
         <div class="gain" data-a="left"><span class="badge"><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg></span><div><h3>Nợ nần có hạn rõ ràng</h3><p>Ai nợ mình, mình nợ ai, hẹn ngày nào. Khoản quá hạn tự nổi lên đầu, trả một phần cũng ghi được.</p></div></div>
@@ -467,7 +483,7 @@ main>section.sc{padding-bottom:calc(clamp(96px,13.9vw,260px)*.7 + 28px)}
       <div class="roles">
         <div class="role" data-a style="--c:var(--green)"><img class="role-img" src="img/the-vua-440.webp" srcset="img/the-vua-440.webp 440w, img/the-vua.webp 800w" sizes="(min-width:900px) 380px, 100vw" width="800" height="333" alt="" loading="lazy" decoding="async"><span class="badge"><svg class="ic" aria-hidden="true"><use href="#i-store"/></svg></span><h3>Vựa, thương lái</h3><ul><li>Lập phiếu mua, phiếu bán</li><li>Theo dõi công nợ và tồn kho</li><li>Báo cáo, xuất Excel</li></ul></div>
         <div class="role" data-a style="--c:#1e40af"><img class="role-img" src="img/the-doanh-nghiep-440.webp" srcset="img/the-doanh-nghiep-440.webp 440w, img/the-doanh-nghiep.webp 800w" sizes="(min-width:900px) 380px, 100vw" width="800" height="333" alt="" loading="lazy" decoding="async"><span class="badge"><svg class="ic" aria-hidden="true"><use href="#i-building"/></svg></span><h3>Doanh nghiệp</h3><ul><li>Thêm nhân viên cùng ghi sổ</li><li>Quản lý nhiều chi nhánh</li><li>Báo cáo tổng toàn công ty</li></ul></div>
-        <div class="role" data-a style="--c:var(--earth)"><img class="role-img" src="img/the-nong-dan-440.webp" srcset="img/the-nong-dan-440.webp 440w, img/the-nong-dan.webp 800w" sizes="(min-width:900px) 380px, 100vw" width="800" height="333" alt="" loading="lazy" decoding="async"><span class="badge"><svg class="ic" aria-hidden="true"><use href="#i-sprout"/></svg></span><h3>Nông dân</h3><ul><li>Đặt đơn hàng với vựa</li><li>Xem phiếu và số dư với vựa đã liên kết</li><li>Bản đồ tìm vựa gần mình</li></ul></div>
+        <div class="role" data-a style="--c:var(--earth)"><img class="role-img" src="img/the-nong-dan-hai-ca-phe-440.webp" srcset="img/the-nong-dan-hai-ca-phe-440.webp 440w, img/the-nong-dan-hai-ca-phe.webp 800w" sizes="(min-width:900px) 380px, 100vw" width="800" height="333" alt="" loading="lazy" decoding="async"><span class="badge"><svg class="ic" aria-hidden="true"><use href="#i-sprout"/></svg></span><h3>Nông dân</h3><ul><li>Đặt đơn hàng với vựa</li><li>Xem phiếu và số dư với vựa đã liên kết</li><li>Bản đồ tìm vựa gần mình</li></ul></div>
       </div>
       <div class="link-band" data-a><svg class="ic" aria-hidden="true"><use href="#i-link"/></svg><p><b>Liên kết giữa các vựa:</b> kết nối bằng mã hoặc quét QR, hai bên cùng nhìn thấy phiếu đã giao dịch với nhau.</p></div>
     </div>
@@ -551,7 +567,7 @@ main>section.sc{padding-bottom:calc(clamp(96px,13.9vw,260px)*.7 + 28px)}
       </div>
     </div>
     <footer class="foot">
-      <span>© 2026 THUMUA365 · Sổ thu mua điện tử cho vựa nông sản<br><small>Ảnh: Dang Cong, Sara Hobbs, Isuru Ranasinha, Praswin Prakashan, Snehsha Tank, Jimmy Art Devier, Danh Vo, David Maillard, Monineath Horn trên <a href="https://unsplash.com" rel="noopener">Unsplash</a></small></span>
+      <span>© 2026 THUMUA365 · Sổ thu mua điện tử cho vựa nông sản<br><small>Ảnh: Dang Cong, Sara Hobbs, Isuru Ranasinha, Praswin Prakashan, Snehsha Tank, Jimmy Art Devier, Luba Glazunova, Michał Lis, FIN, Michael Starkie, Leonardo Baldissara, David Maillard, Monineath Horn trên <a href="https://unsplash.com" rel="noopener">Unsplash</a></small></span>
       <a data-link="web" href="https://thumua365.id.vn">thumua365.id.vn</a>
     </footer>
   </section>

@@ -79,7 +79,7 @@ loại, đặt bằng thuộc tính `data-crop` trên thẻ `<section>`:
 
 ## Ảnh thật
 
-Mười ảnh chụp thật (có thông tin máy ảnh, không phải ảnh AI) lấy từ Unsplash, dùng theo
+Mười bốn ảnh chụp thật (có thông tin máy ảnh, không phải ảnh AI) lấy từ Unsplash, dùng theo
 [giấy phép Unsplash](https://unsplash.com/license): miễn phí cả thương mại, không bắt ghi tên. Trang
 vẫn ghi tên tác giả ở chân trang. Ảnh đã cắt khung và nén WebP, nằm trong `img/`, và chỉ tải khi
 sắp cuộn tới (`loading="lazy"`).
@@ -93,7 +93,11 @@ sắp cuộn tới (`loading="lazy"`).
 | `hang-ho-tieu` | [07mSvSqbij4](https://unsplash.com/photos/07mSvSqbij4) | Praswin Prakashan, Kerala |
 | `hang-dieu` | [RRLJN_EvFbE](https://unsplash.com/photos/RRLJN_EvFbE) | Snehsha Tank |
 | `so-xe-cho-hang` | [xA-qf1joVHE](https://unsplash.com/photos/xA-qf1joVHE) | Jimmy Art Devier (đã cắt bỏ biển số xe) |
-| `the-nong-dan` | [IvnSPK5Q-eQ](https://unsplash.com/photos/IvnSPK5Q-eQ) | Danh Vo, Hà Tĩnh |
+| `the-nong-dan-hai-ca-phe` | [1-ZUhMFleK0](https://unsplash.com/photos/1-ZUhMFleK0) | Luba Glazunova |
+| `so-so-tay` | [NqagKaulCyc](https://unsplash.com/photos/NqagKaulCyc) | Michał Lis |
+| `so-may-tinh` | [0rHxkbcvQAE](https://unsplash.com/photos/0rHxkbcvQAE) | FIN |
+| `so-can-hang` | [AEaNpTt2P3Y](https://unsplash.com/photos/AEaNpTt2P3Y) | Michael Starkie |
+| `so-dien-thoai` | [rNFMDubIqqA](https://unsplash.com/photos/rNFMDubIqqA) | Leonardo Baldissara |
 | `the-doanh-nghiep` | [4TDXpo3odG8](https://unsplash.com/photos/4TDXpo3odG8) | David Maillard |
 | `nen-cao-su-*` | [gI2zE9HfVzE](https://unsplash.com/photos/gI2zE9HfVzE) | Monineath Horn, Campuchia |
 
