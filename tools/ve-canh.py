@@ -19,13 +19,6 @@ def tree(x, y, r, c1, c2, trunk):
 def sack(x, y, w=34, h=24, fill='#e3c189', st='#b8894e'):
     return f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="8" fill="{fill}" stroke="{st}" stroke-width="1.5"/>'
 
-def person(x, y, shirt='#3d7bb5', arm='M12 36l16 8'):
-    # người đội nón lá, cao ~84 đơn vị, chân chạm y+84
-    return (f'<g transform="translate({x} {y})"><path d="M-24 19 0 0 24 19Z" fill="#ead39a"/><path d="M-24 19h48" stroke="#c9a85e" stroke-width="2"/>'
-            f'<circle cx="0" cy="25" r="7" fill="#c98f62"/><path d="M-12 32h24l4 38h-32z" fill="{shirt}"/>'
-            f'<rect x="-10" y="70" width="8" height="14" fill="#2f3b4a"/><rect x="2" y="70" width="8" height="14" fill="#2f3b4a"/>'
-            f'<path d="{arm}" stroke="#c98f62" stroke-width="5" stroke-linecap="round" fill="none"/></g>')
-
 def ground(back, front):
     return (f'<path fill="{back}" d="M0 140C180 108 340 130 520 114S860 98 1040 122 1300 102 1440 120V200H0Z"/>',
             f'<path fill="{front}" d="M0 172C320 160 640 182 960 168S1300 166 1440 174V200H0Z"/>')
@@ -82,14 +75,12 @@ sc['van-de'] = sky + sc['van-de']
 # 3. Lợi ích — rẫy cao su có chén hứng mủ, người cạo mủ
 rows = ''
 for i, x in enumerate(range(40, 1440, 112)):
-    if 650 < x < 760: continue
     h = 112 + (i % 3) * 6
     rows += (f'<rect x="{x}" y="{170-h}" width="14" height="{h}" fill="#b7c3a3"/>'
              f'<path d="M{x} {128-(i%2)*6}l14-9" stroke="#8a9479" stroke-width="2"/><rect x="{x+3}" y="{132-(i%2)*6}" width="9" height="7" rx="2" fill="#fff"/>')
 canopy = ''.join(f'<circle cx="{x}" cy="{50+(i%3)*8}" r="{36+(i%4)*5}" fill="{"#a9d199" if i%2 else "#95c585"}"/>' for i, x in enumerate(range(0, 1500, 70)))
 sc['loi-ich'] = svg('<path fill="#d3e6ca" d="M0 150C300 140 700 158 1000 146S1300 144 1440 150V200H0Z"/>' + canopy + rows
-    + '<rect x="738" y="58" width="14" height="112" fill="#b7c3a3"/><path d="M738 126l14-9" stroke="#8a9479" stroke-width="2"/><rect x="741" y="130" width="9" height="7" rx="2" fill="#fff"/>'
-    + person(700, 88) + '<path fill="#c6ddb9" d="M0 174C320 164 640 182 960 170S1300 168 1440 176V200H0Z"/>')
+    + '<path fill="#c6ddb9" d="M0 174C320 164 640 182 960 170S1300 168 1440 176V200H0Z"/>')
 
 # 4. Tính năng — cây điều trĩu trái, xe đạp chở giỏ điều
 def cashew_tree(x, r):
@@ -109,21 +100,6 @@ sc['tinh-nang'] = svg('<path fill="#f3ead6" d="M0 150C300 136 700 156 1000 144S1
     + '<rect x="618" y="112" width="60" height="26" rx="6" fill="#c58a4a"/><path d="M618 120h60M618 128h60" stroke="#a46f39" stroke-width="2"/>' + nuts + bike
     + '<path fill="#efe3c8" d="M0 174C320 164 640 182 960 170S1300 168 1440 176V200H0Z"/>')
 
-# 5. Cách dùng — hàng trụ tiêu có chùm chín
-random.seed(3)
-poles = ''
-for x in list(range(30, 520, 74)) + list(range(940, 1440, 74)) + [600, 700, 800]:
-    h = random.randint(96, 130); t = 170 - h
-    poles += f'<rect x="{x-5}" y="{t}" width="10" height="{h}" fill="#0c4427"/>'
-    for k in range(7):
-        yy = t + 8 + k * (h - 20) / 7
-        poles += f'<circle cx="{x + random.choice([-9, 9]) + random.uniform(-3, 3):.0f}" cy="{yy:.0f}" r="{random.randint(9, 13)}" fill="{random.choice(["#1f7a48", "#258450", "#2c8f58"])}"/>'
-    for k in range(3):
-        yy = t + 20 + k * h / 3.5; xx = x + random.choice([-6, 6])
-        poles += ''.join(f'<circle cx="{xx+(j%2)*3:.0f}" cy="{yy+j*4:.0f}" r="2.4" fill="#e8553a"/>' for j in range(4))
-sc['cach-dung'] = svg('<path fill="#11592f" d="M0 156C300 146 700 162 1000 150S1300 148 1440 156V200H0Z"/>' + poles
-    + '<path fill="#0f4f2b" d="M0 174C320 164 640 182 960 170S1300 168 1440 176V200H0Z"/>')
-
 # 6. Ai dùng được — nhà nông dân, vựa, công ty nối nhau bằng một con đường
 win = ''.join(f'<rect x="{x}" y="{y}" width="12" height="12" fill="#8ea4e0"/>' for x in range(944, 1010, 20) for y in range(66, 150, 22))
 sc['ai-dung'] = svg('<path fill="#ece3cf" d="M0 140C180 108 340 130 520 114S860 98 1040 122 1300 102 1440 120V200H0Z"/>'
@@ -137,17 +113,11 @@ sc['ai-dung'] = svg('<path fill="#ece3cf" d="M0 140C180 108 340 130 520 114S860 
     + '<path fill="#e6dcc6" d="M0 186C320 180 640 194 960 186S1300 184 1440 188V200H0Z"/>')
 
 # 7. Gói — mặt trời lên trên đồi cà phê chín
-random.seed(11)
-bushes = ''
-for x in range(0, 1480, 64):
-    if 560 < x < 880 and x % 128: continue
-    r = random.randint(26, 34); cy = 150 - random.randint(0, 10)
-    bushes += f'<circle cx="{x}" cy="{cy}" r="{r}" fill="{random.choice(["#5f8f43", "#6b9c4c"])}"/>'
-    bushes += ''.join(f'<circle cx="{x+random.uniform(-r*.6, r*.6):.0f}" cy="{cy+random.uniform(-r*.5, r*.5):.0f}" r="3" fill="#c0392b"/>' for _ in range(5))
 rays = ''.join(f'<path d="M720 150 L{720+190*__import__("math").cos(a):.0f} {150-190*__import__("math").sin(a):.0f}" />' for a in [i*3.1416/9 for i in range(1, 9)])
 sc['goi'] = svg('<g class="sunup"><g stroke="#f6d77a" stroke-width="10" stroke-linecap="round" opacity=".35">' + rays + '</g>'
     + '<circle cx="720" cy="150" r="80" fill="#f6d77a"/><circle cx="720" cy="150" r="62" fill="#f2c14e"/></g>'
-    + '<path fill="#ead9ad" d="M0 150C300 118 560 150 720 140S1140 112 1440 140V200H0Z"/>' + bushes
+    + '<path fill="#ead9ad" d="M0 150C300 118 560 150 720 140S1140 112 1440 140V200H0Z"/>'
+    + '<path fill="#e6d3a2" d="M0 166C260 146 520 170 760 158S1180 144 1440 160V200H0Z"/>'
     + '<path fill="#e3cf9e" d="M0 176C320 166 640 184 960 172S1300 170 1440 178V200H0Z"/>')
 
 # 8. Hỏi đáp — gốc cây, võng đung đưa, nón lá, ấm trà
@@ -163,11 +133,6 @@ sc['hoi-dap'] = svg('<path fill="#ece3cf" d="M0 150C300 138 700 158 1000 146S130
     + '<path d="M482 128c-10 0-10 12 0 12" stroke="#4a7334" stroke-width="3" fill="none"/>'
     + '<rect x="528" y="136" width="10" height="10" rx="2" fill="#fff" stroke="#b9ad98"/><rect x="544" y="136" width="10" height="10" rx="2" fill="#fff" stroke="#b9ad98"/>'
     + '<path fill="#e6dcc6" d="M0 174C320 164 640 182 960 170S1300 168 1440 176V200H0Z"/>')
-
-# 9. Bắt đầu — đồi xanh phía sau chân trang
-sc['bat-dau'] = svg('<path fill="#0e4a2c" d="M0 120C200 80 420 120 640 96S1100 70 1440 110V200H0Z"/>'
-    + '<path fill="#0c3f26" d="M0 150C300 120 600 160 900 136S1300 120 1440 140V200H0Z"/>'
-    + '<path d="M120 150l40-10M120 162l50-10M1240 140l50 6M1250 152l50 6" stroke="#145a35" stroke-width="5" stroke-linecap="round"/>')
 
 for sid, markup in sc.items():
     a = s.index(f'<section id="{sid}"')

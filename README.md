@@ -1,7 +1,7 @@
 # thumua365-landing — trang giới thiệu THUMUA365
 
 Một trang tĩnh: `index.html` (CSS nằm sẵn trong trang) + `main.js` + `config.js` + logo.
-**Không build, không framework, không thư viện, không công cụ theo dõi.** Cả trang ~95 KB chưa nén (~25 KB khi máy chủ nén gzip).
+**Không build, không framework, không thư viện, không công cụ theo dõi.** Trang ~90 KB chưa nén (~22 KB khi máy chủ nén gzip), cộng ảnh WebP ~500 KB chỉ tải khi cuộn tới.
 Lighthouse (máy local): Hiệu năng / Truy cập / Thực hành tốt / SEO = 100 cả mobile lẫn desktop.
 
 | File | Là gì |
@@ -77,12 +77,35 @@ loại, đặt bằng thuộc tính `data-crop` trên thẻ `<section>`:
 `--o` trong CSS. `main.js` rải hình hai bên mép (6 hình trên máy tính, 4 trên điện thoại), vị trí cố
 định theo từng mục. Hình chỉ trôi ở mục đang xem, và đứng yên khi bật giảm chuyển động.
 
+## Ảnh thật
+
+Mười ảnh chụp thật (có thông tin máy ảnh, không phải ảnh AI) lấy từ Unsplash, dùng theo
+[giấy phép Unsplash](https://unsplash.com/license): miễn phí cả thương mại, không bắt ghi tên. Trang
+vẫn ghi tên tác giả ở chân trang. Ảnh đã cắt khung và nén WebP, nằm trong `img/`, và chỉ tải khi
+sắp cuộn tới (`loading="lazy"`).
+
+| File | Ảnh gốc | Tác giả, nơi chụp |
+|---|---|---|
+| `nen-ca-phe-*`, `hang-ca-phe` | [JqF4IS65xEg](https://unsplash.com/photos/JqF4IS65xEg) | Dang Cong, Đắk Nông |
+| `so-sot-ca-phe` | [YpLkgbXjirI](https://unsplash.com/photos/YpLkgbXjirI) | Sara Hobbs, Đà Lạt |
+| `the-vua` | [7K64kQrcsxU](https://unsplash.com/photos/7K64kQrcsxU) | Dang Cong, Đắk Nông |
+| `hang-cao-su` | [I_40CRTRSBs](https://unsplash.com/photos/I_40CRTRSBs) | Isuru Ranasinha |
+| `hang-ho-tieu` | [07mSvSqbij4](https://unsplash.com/photos/07mSvSqbij4) | Praswin Prakashan, Kerala |
+| `hang-dieu` | [RRLJN_EvFbE](https://unsplash.com/photos/RRLJN_EvFbE) | Snehsha Tank |
+| `so-xe-cho-hang` | [xA-qf1joVHE](https://unsplash.com/photos/xA-qf1joVHE) | Jimmy Art Devier (đã cắt bỏ biển số xe) |
+| `the-nong-dan` | [IvnSPK5Q-eQ](https://unsplash.com/photos/IvnSPK5Q-eQ) | Danh Vo, Hà Tĩnh |
+| `the-doanh-nghiep` | [4TDXpo3odG8](https://unsplash.com/photos/4TDXpo3odG8) | David Maillard |
+| `nen-cao-su-*` | [gI2zE9HfVzE](https://unsplash.com/photos/gI2zE9HfVzE) | Monineath Horn, Campuchia |
+
+Có ảnh chụp thật ở vựa, rẫy của mình thì thay vào đúng tên file là xong; nhớ sửa luôn dòng ghi tên ở
+chân trang.
+
 ## Dải cảnh làng quê
 
-Đáy mỗi mục (trừ mở đầu) có một cảnh vẽ SVG, không chữ, kể đúng chuyện của mục: xe hàng vào vựa,
-xóm đêm sáng đèn dưới trời sao, rẫy cao su có người cạo mủ, cây điều và xe đạp chở điều, trụ tiêu,
-nhà nông dân – vựa – công ty nối bằng con đường, mặt trời lên trên đồi cà phê, võng dưới gốc cây
-với ấm trà, đồi xanh sau chân trang.
+Đáy bảy mục có một cảnh vẽ SVG, không chữ, kể đúng chuyện của mục: xe hàng vào vựa, xóm đêm sáng
+đèn dưới trời sao, rẫy cao su có chén hứng mủ, cây điều và xe đạp chở điều, nhà nông dân – vựa –
+công ty nối bằng con đường, mặt trời lên trên đồi, võng dưới gốc cây với ấm trà. Mục "Cách dùng" và
+"Bắt đầu" dùng ảnh thật làm nền nên không có cảnh vẽ.
 
 Cảnh **sinh bằng script**, đừng sửa tay trong `index.html`:
 
