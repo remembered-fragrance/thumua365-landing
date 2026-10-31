@@ -304,7 +304,8 @@ main>section.sc{padding-bottom:calc(clamp(96px,13.9vw,260px)*.7 + 28px)}
 /* ===== 8. Gói ===== */
 #goi{background:linear-gradient(180deg,#fbf3dc 0%,var(--paper) 100%)}
 .plans{display:grid;gap:16px;margin-top:1.8rem}
-@media (min-width:900px){.plans{grid-template-columns:repeat(3,1fr);align-items:stretch}}
+@media (min-width:640px){.plans{grid-template-columns:repeat(2,1fr);align-items:stretch}}
+@media (min-width:1080px){.plans{grid-template-columns:repeat(4,1fr)}}
 .plan{position:relative;display:flex;flex-direction:column;padding:24px;border-radius:22px;background:#fff;border:1px solid var(--rule)}
 .plan.best{border:2px solid var(--green);box-shadow:0 20px 40px -24px rgba(20,102,60,.7)}
 .plan .flag{position:absolute;top:-13px;left:24px;padding:3px 12px;border-radius:99px;background:var(--gold);font-size:.78rem;font-weight:800;transform-origin:50% 120%}
@@ -312,6 +313,8 @@ main>section.sc{padding-bottom:calc(clamp(96px,13.9vw,260px)*.7 + 28px)}
 @keyframes wiggle{0%,82%,100%{rotate:0deg}86%{rotate:-7deg}90%{rotate:6deg}94%{rotate:-3deg}}
 .price{font-size:2rem;font-weight:800;color:var(--green);margin:.1em 0 .1em;font-variant-numeric:tabular-nums}
 .price small{font-size:.95rem;font-weight:500;color:var(--ink-2)}
+.plan .year{margin:0;font-size:.9rem;color:var(--ink-2)}
+.plan li a{color:var(--green);font-weight:700}
 .plan ul{margin:.8rem 0 0;padding:0;list-style:none}
 .plan li{display:flex;gap:8px;margin:.45em 0;font-size:.97rem}
 .plan li .ic{width:20px;height:20px;color:var(--green);margin-top:3px}
@@ -620,33 +623,46 @@ main>section.sc{padding-bottom:calc(clamp(96px,13.9vw,260px)*.7 + 28px)}
       <h2 id="goi-t" data-a>Dùng thử 30 ngày, rồi chọn gói hợp với vựa</h2>
       <div class="plans">
         <div class="plan" data-a>
-          <h3>Miễn phí</h3>
-          <p class="price">0₫</p>
+          <h3>Dùng thử</h3>
+          <p class="price">0₫ <small>/ 30 ngày</small></p>
           <ul>
-            <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span><b>30 phiếu mỗi tháng</b>, sang tháng đếm lại</span></li>
-            <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Dùng trên một máy, sổ nằm trong máy đó</span></li>
-            <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Lưu tên, số điện thoại nông hộ</span></li>
-            <li class="no"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg><span>Không có công nợ, xuất file, đồng bộ</span></li>
+            <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span><b>Đủ tính năng của gói đã chọn</b> lúc đăng ký: Thương lái hoặc Vựa</span></li>
+            <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Không cần chuyển khoản trước</span></li>
+            <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Hết 30 ngày chưa mua: vẫn ghi <b>30 phiếu mỗi tháng</b> trên một máy</span></li>
+            <li class="no"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg><span>Gói miễn phí không có công nợ, xuất file, đồng bộ</span></li>
           </ul>
         </div>
         <div class="plan" data-a>
-          <h3>Theo tháng</h3>
-          <p class="price"><span data-count="149000">149.000</span>₫ <small>/ tháng</small></p>
+          <h3>Thương lái</h3>
+          <p class="price"><span data-count="199000">199.000</span>₫ <small>/ tháng</small></p>
+          <p class="year">hoặc 1.990.000₫ / năm — trả 10 tháng, dùng 12 tháng</p>
           <ul>
             <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span><b>Ghi phiếu không giới hạn</b></span></li>
             <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Công nợ đầy đủ, hẹn ngày trả</span></li>
             <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Xuất Excel, PDF cho kế toán</span></li>
             <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Nhiều máy chung một sổ, mất máy vẫn còn sổ</span></li>
+            <li class="no"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg><span>Làm một mình, không thêm người cân</span></li>
           </ul>
         </div>
         <div class="plan best" data-a>
-          <span class="flag">Tặng 2 tháng</span>
-          <h3>Theo năm</h3>
-          <p class="price"><span data-count="1490000">1.490.000</span>₫ <small>/ năm</small></p>
+          <span class="flag">Có người cân</span>
+          <h3>Vựa</h3>
+          <p class="price"><span data-count="449000">449.000</span>₫ <small>/ tháng</small></p>
+          <p class="year">hoặc 4.490.000₫ / năm — trả 10 tháng, dùng 12 tháng</p>
           <ul>
-            <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Đủ mọi tính năng của gói tháng</span></li>
-            <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Trả một lần vào mùa, khỏi nhớ gia hạn</span></li>
-            <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Trả 10 tháng, dùng 12 tháng</span></li>
+            <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Mọi thứ của gói Thương lái</span></li>
+            <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span><b>3 người cân đi kèm</b></span></li>
+            <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Thêm người cân <b>79.000₫</b> / người / tháng (790.000₫ / năm), tối đa 8 người</span></li>
+            <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Nhật ký: ai sửa, xoá phiếu nào</span></li>
+            <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Báo cáo tổng, việc từng người cân</span></li>
+          </ul>
+        </div>
+        <div class="plan" data-a>
+          <h3>Doanh nghiệp thu mua</h3>
+          <p class="price">Liên hệ</p>
+          <ul>
+            <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Nhiều chi nhánh, kho, quản lý và nhân viên</span></li>
+            <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Giá theo số chi nhánh: nhắn Zalo <a href="https://zalo.me/0969158913">0969 158 913</a> để được báo giá</span></li>
           </ul>
         </div>
       </div>
