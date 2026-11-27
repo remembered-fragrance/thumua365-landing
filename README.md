@@ -130,7 +130,7 @@ Chuyển động (xe chạy vào, sao lấp lánh, khói bếp, võng đung đư
 
 ## Nội dung
 
-Giá, hạn mức gói miễn phí, 30 ngày dùng thử, "hết hạn không khoá sổ / không tự trừ tiền / hoàn tiền
+Giá, hạn mức gói miễn phí, 60 ngày dùng thử, "hết hạn không khoá sổ / không tự trừ tiền / hoàn tiền
 7 ngày" chép đúng từ `src/config.ts` và `site/index.html` của repo app. **Đổi giá bên app thì sửa
 cả ở đây** — trang này không tự đọc `config.ts`.
 
